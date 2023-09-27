@@ -1,0 +1,9 @@
+0.7
+2020.2
+Jun 16 2023
+19:36:26
+/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/implementation/ALU/ALU.sim/sim_1/behav/xsim/glbl.v,1683266558,verilog,,,,glbl,,,,,,,,
+/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/sources/alu.v,1695851592,verilog,,/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/sources/alu_input_ctrl.v,,alu,,,,,,,,
+/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/sources/alu_input_ctrl.v,1695852211,verilog,,/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v,,alu_input_ctrl,,,,,,,,
+/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/sources/alu_top.v,1695851555,verilog,,,,alu_top,,,,,,,,
+/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v,1695852101,verilog,,,,alu_alfa_tb,,,,,,,,

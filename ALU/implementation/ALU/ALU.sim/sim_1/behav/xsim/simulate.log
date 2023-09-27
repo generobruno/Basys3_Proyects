@@ -1,0 +1,53 @@
+Time resolution is 1 ps
+A=  x, B=  x, Op=xxxxxx, Result=  x
+A=  0, B=  0, Op=000000, Result=  0
+A=  0, B=  1, Op=000000, Result=  0
+A=  0, B=  1, Op=100000, Result=  1
+Error: Test case 0 failed.
+Time: 250 ns  Iteration: 0  Process: /alu_alfa_tb/Initial79_4  Scope: alu_alfa_tb  File: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v Line: 125
+A=  0, B=  0, Op=000000, Result=  0
+A=  9, B=  0, Op=000000, Result=  0
+A=  9, B=  3, Op=000000, Result=  0
+A=  9, B=  3, Op=100010, Result=  6
+Test case 1 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A= 13, B=  0, Op=000000, Result=  0
+A= 13, B= 13, Op=000000, Result=  0
+A= 13, B= 13, Op=100100, Result= 13
+Test case 2 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A=  5, B=  0, Op=000000, Result=  0
+A=  5, B=-14, Op=000000, Result=  0
+A=  5, B=-14, Op=100101, Result= -9
+Test case 3 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A=  1, B=  0, Op=000000, Result=  0
+A=  1, B= 13, Op=000000, Result=  0
+A=  1, B= 13, Op=100110, Result= 12
+Test case 4 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A=-10, B=  0, Op=000000, Result=  0
+A=-10, B= -3, Op=000000, Result=  0
+A=-10, B= -3, Op=000011, Result= -1
+Error: Test case 5 failed.
+Time: 1750 ns  Iteration: 0  Process: /alu_alfa_tb/Initial79_4  Scope: alu_alfa_tb  File: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v Line: 125
+A=  0, B=  0, Op=000000, Result=  0
+A= 13, B=  0, Op=000000, Result=  0
+A= 13, B= 12, Op=000000, Result=  0
+A= 13, B= 12, Op=000010, Result=  0
+Test case 6 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A= -7, B=  0, Op=000000, Result=  0
+A= -7, B=  6, Op=000000, Result=  0
+A= -7, B=  6, Op=100111, Result=  0
+Test case 7 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A=  5, B=  0, Op=000000, Result=  0
+A=  5, B= 10, Op=000000, Result=  0
+Test case 8 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+A=  5, B=  0, Op=000000, Result=  0
+A=  5, B= -9, Op=000000, Result=  0
+Test case 9 passed OK!
+A=  0, B=  0, Op=000000, Result=  0
+$finish called at time : 3 us : File "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v" Line 131
