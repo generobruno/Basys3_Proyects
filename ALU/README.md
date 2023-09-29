@@ -2,7 +2,7 @@
 
 En este informe, se describe la implementación de dos módulos en Verilog: una Unidad Aritmético-Lógica (ALU) parametrizable y su control de entradas. La ALU es una unidad fundamental en la arquitectura de una CPU que realiza operaciones aritméticas y lógicas en datos. El control de entradas permite configurar los operandos y la operación que la ALU debe ejecutar. A continuación, se detalla cada módulo y su funcionalidad.
 
-## Módulo ALU
+## [Módulo ALU](sources/alu.v)
 
 El módulo ALU es una unidad parametrizable que realiza diversas operaciones aritméticas y lógicas en función de la operación seleccionada. Las operaciones disponibles y sus códigos de operación correspondientes son los siguientes:
 
@@ -43,7 +43,7 @@ El módulo ALU realiza la operación especificada por `i_alu_Op` en los operando
 - **SRL (Desplazamiento lógico a la derecha)**: Realiza un desplazamiento lógico de `i_alu_A` a la derecha según el valor en `i_alu_B`.
 - **NOR (NOR lógico)**: Realiza una operación NOR lógica entre los operandos.
 
-## Módulo ALU Input Control
+## [Módulo ALU Input Control](sources/alu_input_ctrl.v)
 
 El módulo `alu_input_ctrl` se encarga de gestionar las entradas de la ALU utilizando interruptores (switches) y botones para configurar los operandos y la operación que se realizará. Este módulo se utiliza para establecer los valores de `i_alu_A`, `i_alu_B`, e `i_alu_Op`.
 
@@ -72,7 +72,7 @@ El módulo `alu_input_ctrl` tiene los siguientes parámetros:
 
 El módulo `alu_input_ctrl` almacena los valores de los switches en `stored_A`, `stored_B`, y `stored_Op` cuando se presionan los botones correspondientes. Estos valores se actualizan cuando no se encuentra en estado de reset. Luego, se utilizan como entradas para la ALU.
 
-## Módulo alu_top
+## [Módulo ALU Top](sources/alu_top.v)
 
 El módulo `alu_top` es el módulo principal que instancia tanto la ALU como su control de entradas. Este módulo conecta todo el sistema y permite configurar la ALU mediante interruptores y botones.
 
@@ -99,11 +99,11 @@ El módulo `alu_top` tiene los siguientes parámetros:
 
 El módulo `alu_top` instancia tanto el módulo `alu_input_ctrl` como el módulo `alu`, conectando las señales de entrada y salida correspondientes. De esta manera, el sistema permite configurar la ALU a través de interruptores y botones.
 
-# Test Bench para los Módulos ALU y alu_input_ctrl
+## [Test Bench](tests/alu_tb.v)
 
 Se ha desarrollado un test bench para verificar el funcionamiento de los módulos `alu` y `alu_input_ctrl`. El objetivo de este test bench es validar que la ALU realiza las operaciones correctamente y que el control de entradas configura adecuadamente los operandos y el código de operación. A continuación, se describe el test bench y su funcionamiento.
 
-## Parámetros
+### Parámetros
 
 El test bench utiliza los siguientes parámetros:
 
@@ -111,11 +111,11 @@ El test bench utiliza los siguientes parámetros:
 - `NSel`: Tamaño del código de operación (6 bits).
 - `N_SW`: Tamaño de los interruptores (calculado como `(N * 2) + NSel`).
 
-## Generación de Clock
+### Generación de Clock
 
 Se genera una señal de reloj `clk` con un período de 25 unidades de tiempo.
 
-## Entradas y Salidas
+### Entradas y Salidas
 
 - `i_sw`: Estado de los interruptores.
 - `i_button_A`, `i_button_B`, `i_button_Op`: Botones para actualizar los operandos y el código de operación.
@@ -123,12 +123,12 @@ Se genera una señal de reloj `clk` con un período de 25 unidades de tiempo.
 - `o_alu_A`, `o_alu_B`, `o_alu_Op`: Salidas del control de entradas que se conectan a la ALU.
 - `o_alu_Result`: Salida de la ALU que se muestra en LEDs.
 
-## Configuración Inicial
+### Configuración Inicial
 
 - Se inicializan las entradas y botones en estado bajo (0).
 - Se activa el botón de reset durante un breve periodo de tiempo y luego se desactiva para asegurarse de que los módulos comienzan en un estado predecible.
 
-## Generación de Casos de Prueba
+### Generación de Casos de Prueba
 
 El test bench ejecuta 10 casos de prueba diferentes para verificar varias operaciones de la ALU. En cada caso de prueba:
 
@@ -142,10 +142,10 @@ El test bench ejecuta 10 casos de prueba diferentes para verificar varias operac
 
 Si los resultados coinciden, se muestra un mensaje indicando que el caso de prueba pasó correctamente. En caso contrario, se muestra un mensaje de error.
 
-## Monitorización
+### Monitorización
 
 Se utiliza el monitor para mostrar en la consola los valores de los operandos, el código de operación y el resultado de la ALU en cada ciclo de reloj.
 
-## Conclusión
+### Conclusión
 
 Este test bench permite verificar el correcto funcionamiento de los módulos `alu` y `alu_input_ctrl` al simular su interacción con interruptores y botones, así como la realización de operaciones por parte de la ALU. La verificación exitosa de los casos de prueba demuestra que los módulos operan de acuerdo a las especificaciones.
