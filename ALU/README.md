@@ -15,6 +15,8 @@ El módulo ALU es una unidad parametrizable que realiza diversas operaciones ari
 7. SRL (Desplazamiento lógico a la derecha): Código de operación 000010
 8. NOR (NOR lógico): Código de operación 100111
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/a6c9573a-4ac6-4e56-b4ee-8273a88fbaf2)
+
 El módulo ALU tiene los siguientes parámetros:
 
 - `N`: Tamaño de los operandos (por defecto, 4 bits).
@@ -47,6 +49,8 @@ El módulo ALU realiza la operación especificada por `i_alu_Op` en los operando
 
 El módulo `alu_input_ctrl` se encarga de gestionar las entradas de la ALU utilizando interruptores (switches) y botones para configurar los operandos y la operación que se realizará. Este módulo se utiliza para establecer los valores de `i_alu_A`, `i_alu_B`, e `i_alu_Op`.
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/bfce2770-0091-4e22-81fb-2e65298d3445)
+
 El módulo `alu_input_ctrl` tiene los siguientes parámetros:
 
 - `N_SW`: Tamaño de los switches (por defecto, 14 bits).
@@ -75,6 +79,8 @@ El módulo `alu_input_ctrl` almacena los valores de los switches en `stored_A`, 
 ## [Módulo ALU Top](sources/alu_top.v)
 
 El módulo `alu_top` es el módulo principal que instancia tanto la ALU como su control de entradas. Este módulo conecta todo el sistema y permite configurar la ALU mediante interruptores y botones.
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/c122ee81-f852-4532-8d5b-983ee751fded)
 
 El módulo `alu_top` tiene los siguientes parámetros:
 
