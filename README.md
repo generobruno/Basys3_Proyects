@@ -1,6 +1,8 @@
-# Repositorio de Proyectos para FPGA Basys 3
+# Proyectos para FPGA Basys 3
 
 Este repositorio contiene una colección de proyectos desarrollados para la FPGA Basys 3. Cada carpeta representa un proyecto independiente relacionado con la FPGA Basys 3.
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/42588ae5-0180-4e50-a661-6945f7632fa4)
 
 ## Contenido del Repositorio
 
@@ -18,5 +20,6 @@ Cada carpeta de proyecto contiene su propio conjunto de archivos y documentació
 
 ¡Las contribuciones a este repositorio son bienvenidas! Si tienes proyectos adicionales relacionados con la FPGA Basys 3 o mejoras para los proyectos existentes, no dudes en enviar un Pull Request.
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/91d14966-ea6a-4ac3-98f4-fc9bb962f13c)
 ---
 
