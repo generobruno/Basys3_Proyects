@@ -22,8 +22,6 @@ module alu_top
         output wire [N-1 : 0]           o_LED_Result        // Result LEDs
     );
 
-    //TODO Si N_SW es mayor a 16 -> error
-
     // Signals
     wire [N-1 : 0] alu_A, alu_B, o_alu_Result;
     wire [NSel-1 : 0] alu_Op;

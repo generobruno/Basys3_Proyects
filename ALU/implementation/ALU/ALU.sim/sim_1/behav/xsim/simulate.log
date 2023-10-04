@@ -51,3 +51,4 @@ A=  5, B= -9, Op=000000, Result=  0
 Test case 9 passed OK!
 A=  0, B=  0, Op=000000, Result=  0
 $finish called at time : 3 us : File "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/tests/alu_tb.v" Line 131
+INFO: xsimkernel Simulation Memory Usage: 109588 KB (Peak: 162760 KB), Simulation CPU Usage: 42250 ms

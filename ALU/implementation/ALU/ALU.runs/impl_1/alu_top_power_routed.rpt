@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date             : Wed Sep 27 19:13:09 2023
+| Date             : Wed Oct  4 18:16:04 2023
 | Host             : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command          : report_power -file alu_top_power_routed.rpt -pb alu_top_power_summary_routed.pb -rpx alu_top_power_routed.rpx
 | Design           : alu_top

@@ -3,12 +3,12 @@
 # SW Build 3900603 on Fri Jun 16 19:30:25 MDT 2023
 # IP Build 3900379 on Sat Jun 17 05:28:05 MDT 2023
 # SharedData Build 3899622 on Fri Jun 16 03:34:24 MDT 2023
-# Start of session at: Wed Sep 27 19:11:37 2023
-# Process ID: 874115
+# Start of session at: Wed Oct  4 18:13:04 2023
+# Process ID: 79214
 # Current directory: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/implementation/ALU/ALU.runs/synth_1
 # Command line: vivado -log alu_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alu_top.tcl
 # Log file: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/implementation/ALU/ALU.runs/synth_1/alu_top.vds
 # Journal file: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/ALU/implementation/ALU/ALU.runs/synth_1/vivado.jou
-# Running On: BrunoLaptop, OS: Linux, CPU Frequency: 3710.977 MHz, CPU Physical cores: 2, Host memory: 16635 MB
+# Running On: BrunoLaptop, OS: Linux, CPU Frequency: 2100.006 MHz, CPU Physical cores: 2, Host memory: 16635 MB
 #-----------------------------------------------------------
 source alu_top.tcl -notrace

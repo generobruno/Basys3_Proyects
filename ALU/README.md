@@ -2,6 +2,8 @@
 
 En este informe, se describe la implementación de dos módulos en Verilog: una Unidad Aritmético-Lógica (ALU) parametrizable y su control de entradas. La ALU es una unidad fundamental en la arquitectura de una CPU que realiza operaciones aritméticas y lógicas en datos. El control de entradas permite configurar los operandos y la operación que la ALU debe ejecutar. A continuación, se detalla cada módulo y su funcionalidad.
 
+Integrantes: Bruno A. Genero, Ignacio Ibañez Sala.
+
 ## [Módulo ALU](sources/alu.v)
 
 El módulo ALU es una unidad parametrizable que realiza diversas operaciones aritméticas y lógicas en función de la operación seleccionada. Las operaciones disponibles y sus códigos de operación correspondientes son los siguientes:
