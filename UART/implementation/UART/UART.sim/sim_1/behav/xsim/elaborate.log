@@ -1,0 +1,40 @@
+Vivado Simulator v2023.1.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/bruno/Xilinx/Vivado/2023.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot uart_alu_tb_behav xil_defaultlib.uart_alu_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_alu_top.v" Line 1. Module uart_alu_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_top.v" Line 7. Module uart_top(DVSR=326) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/mod_m_counter.v" Line 7. Module mod_m_counter(M=326) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_rx.v" Line 5. Module uart_rx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/fifo.v" Line 18. Module fifo(W=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/fifo.v" Line 18. Module fifo(W=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_tx.v" Line 5. Module uart_tx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/alu.v" Line 23. Module alu(N=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_alu_interface.v" Line 1. Module uart_alu_interface(OP_SZ=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_alu_top.v" Line 1. Module uart_alu_top doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_top.v" Line 7. Module uart_top(DVSR=326) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/mod_m_counter.v" Line 7. Module mod_m_counter(M=326) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_rx.v" Line 5. Module uart_rx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/fifo.v" Line 18. Module fifo(W=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/fifo.v" Line 18. Module fifo(W=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_tx.v" Line 5. Module uart_tx doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/alu.v" Line 23. Module alu(N=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/sources/uart_alu_interface.v" Line 1. Module uart_alu_interface(OP_SZ=8) doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.mod_m_counter(M=326)
+Compiling module xil_defaultlib.uart_rx
+Compiling module xil_defaultlib.fifo(W=2)
+Compiling module xil_defaultlib.uart_tx
+Compiling module xil_defaultlib.uart_top(DVSR=326)
+Compiling module xil_defaultlib.alu(N=8)
+Compiling module xil_defaultlib.uart_alu_interface(OP_SZ=8)
+Compiling module xil_defaultlib.uart_alu_top
+Compiling module xil_defaultlib.uart_alu_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot uart_alu_tb_behav

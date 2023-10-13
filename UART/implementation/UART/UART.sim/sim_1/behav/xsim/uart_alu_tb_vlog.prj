@@ -1,0 +1,17 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../../sources/alu.v" \
+"../../../../../../sources/fifo.v" \
+"../../../../../../sources/mod_m_counter.v" \
+"../../../../../../sources/uart_alu_interface.v" \
+"../../../../../../sources/uart_alu_top.v" \
+"../../../../../../sources/uart_rx.v" \
+"../../../../../../sources/uart_top.v" \
+"../../../../../../sources/uart_tx.v" \
+"../../../../../../tests/uart_alu_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

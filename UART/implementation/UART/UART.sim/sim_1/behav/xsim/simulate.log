@@ -1,0 +1,61 @@
+Time resolution is 1 ps
+
+TESTING UART...
+
+data_to_send: 00000100
+Transmitted bit 0: 0
+data_to_send: 00000010
+Transmitted bit 1: 0
+data_to_send: 00000001
+Transmitted bit 2: 1
+data_to_send: 00000000
+Transmitted bit 3: 0
+data_to_send: 00000000
+Transmitted bit 4: 0
+data_to_send: 00000000
+Transmitted bit 5: 0
+data_to_send: 00000000
+Transmitted bit 6: 0
+data_to_send: 00000000
+Transmitted bit 7: 0
+ALL DATA SENT
+
+data_to_send: 10000000
+Transmitted bit 0: 0
+data_to_send: 01000000
+Transmitted bit 1: 0
+data_to_send: 00100000
+Transmitted bit 2: 0
+data_to_send: 00010000
+Transmitted bit 3: 0
+data_to_send: 00001000
+Transmitted bit 4: 0
+data_to_send: 00000100
+Transmitted bit 5: 0
+data_to_send: 00000010
+Transmitted bit 6: 0
+data_to_send: 00000001
+Transmitted bit 7: 1
+ALL DATA SENT
+
+data_to_send: 10000000
+Transmitted bit 0: 0
+data_to_send: 01000000
+Transmitted bit 1: 0
+data_to_send: 00100000
+Transmitted bit 2: 0
+data_to_send: 00010000
+Transmitted bit 3: 0
+data_to_send: 00001000
+Transmitted bit 4: 0
+data_to_send: 00000100
+Transmitted bit 5: 0
+data_to_send: 00000010
+Transmitted bit 6: 0
+data_to_send: 00000001
+Transmitted bit 7: 1
+ALL DATA SENT
+
+
+All received data matches sent data. TX Test Passed!
+$stop called at time : 11979100 ns : File "/home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/tests/uart_alu_tb.v" Line 173
