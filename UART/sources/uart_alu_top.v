@@ -29,6 +29,7 @@ module uart_alu_top
     wire [DATA_BITS-1 :0]       op_b;               // ALU Operand B
     wire [OPCODE_BITS-1 :0]     op_code;            // ALU Operation Code
     wire                        tx_done_tick;       // Transmission Done Signal
+    wire                        rx_done_tick;
 
     //! Instantiations
     // UART Module
@@ -51,6 +52,7 @@ module uart_alu_top
         .o_rx_empty(rx_empty),
         .o_tx(o_tx),
         .o_tx_done_tick(tx_done_tick),
+        .o_rx_done_tick(rx_done_tick),
         .o_r_data(r_data)
     );
 
@@ -84,6 +86,7 @@ module uart_alu_top
         .i_r_data(r_data),
         .i_result_data(result_data),
         .i_tx_done_tick(tx_done_tick),
+        .i_rx_done_tick(rx_done_tick),
         // Outputs
         .o_w_data(w_data),
         .o_wr_uart(wr_uart),

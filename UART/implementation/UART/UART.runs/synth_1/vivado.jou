@@ -3,12 +3,12 @@
 # SW Build 3900603 on Fri Jun 16 19:30:25 MDT 2023
 # IP Build 3900379 on Sat Jun 17 05:28:05 MDT 2023
 # SharedData Build 3899622 on Fri Jun 16 03:34:24 MDT 2023
-# Start of session at: Fri Oct 13 18:59:07 2023
-# Process ID: 1512288
+# Start of session at: Wed Oct 18 19:10:30 2023
+# Process ID: 393933
 # Current directory: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/implementation/UART/UART.runs/synth_1
 # Command line: vivado -log uart_alu_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source uart_alu_top.tcl
 # Log file: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/implementation/UART/UART.runs/synth_1/uart_alu_top.vds
 # Journal file: /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/implementation/UART/UART.runs/synth_1/vivado.jou
-# Running On: BrunoLaptop, OS: Linux, CPU Frequency: 3699.415 MHz, CPU Physical cores: 2, Host memory: 16635 MB
+# Running On: BrunoLaptop, OS: Linux, CPU Frequency: 2899.975 MHz, CPU Physical cores: 2, Host memory: 16635 MB
 #-----------------------------------------------------------
 source uart_alu_top.tcl -notrace

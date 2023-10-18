@@ -70,8 +70,10 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param xicom.use_bs_reader 1
+set_param chipscope.maxJobs 1
 set_param checkpoint.writeSynthRtdsInDcp 1
-set_param synth.incrementalSynthesisCache ./.Xil/Vivado-1337821-BrunoLaptop/incrSyn
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-358811-BrunoLaptop/incrSyn
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
@@ -111,6 +113,8 @@ read_xdc /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Tr
 set_property used_in_implementation false [get_files /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/constraints/Basys-3-UART.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/implementation/UART/UART.srcs/utils_1/imports/synth_1/uart_alu_top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

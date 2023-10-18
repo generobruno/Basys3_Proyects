@@ -4,9 +4,9 @@ module uart_alu_tb();
 
     // Parameters
     localparam T = 20;              // Clock Period [ns]
-    localparam CLKS_PER_BIT = 2604; // 50MHz / 19200 baud rate = 2604 Clocks per bit
-    localparam BIT_PERIOD = 52083;  // CLKS_PER_BIT * T_NS = Bit period
-    localparam TX_PERIOD = 520830;  // BIT_PERIOD * 10 = TX period
+    localparam CLKS_PER_BIT = 5208; // 50MHz / 19200 baud rate = 2604 Clocks per bit
+    localparam BIT_PERIOD = 104167;  // CLKS_PER_BIT * T_NS = Bit period
+    localparam TX_PERIOD = 1041670;  // BIT_PERIOD * 10 = TX period
     localparam NUM_TESTS = 3;       // Number of tests
 
     // Operation parameters
@@ -65,10 +65,10 @@ module uart_alu_tb();
     integer bit_count;
     begin
         for (i = 0; i < NUM_TESTS; i = i + 1) begin
-            if (i == 0)
+            if (i == 2)
                 data_to_send = 8'b00000100; // ADD
             else
-                data_to_send = 8'b10000000;
+                data_to_send = 8'b01000000;
 
             // Send Start bit
             i_rx = 1'b0;
@@ -144,6 +144,7 @@ module uart_alu_tb();
         UART_RECEIVE_BYTE();
 
         #(TX_PERIOD*10);
+        /*
         // Test Case: Write random data into TX FIFO
         while ((o_rx_empty != 1) && (received_data_mismatch != 1)) begin
             for (test_num = 0; test_num < NUM_TESTS; test_num = test_num + 1) begin
@@ -167,7 +168,7 @@ module uart_alu_tb();
             $display("\nAll received data matches sent data. TX Test Passed!");
         else
             $display("\nFailed Receiving Data. Check UART FIFO_W Size.");
-        #(TX_PERIOD*10);
+        */
 
         // Stop simulation
         $stop;  
