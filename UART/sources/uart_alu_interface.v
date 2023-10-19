@@ -98,6 +98,7 @@ module uart_alu_interface
                 if (~i_rx_empty) 
                     begin
                         state_next = SAVE_OP1;
+                        //aux_send_next = 1'b1;
                         //opcode_next = i_r_data[OPCODE_SZ-1 : 0];
                         //rd_uart_reg_next = 1'b1;
                     end
@@ -107,56 +108,57 @@ module uart_alu_interface
                 //state_next = SAVE_OP2;
                 //op1_next = i_r_data;
                 //rd_uart_reg_next = 1'b1;
-                if(i_rx_done_tick)
-                    begin
-                        rd_uart_reg_next = 1'b1;
-                        aux_send_next = 1'b1;
-                    end
-                if(~i_rx_empty && aux_send)
+                //if(i_rx_done_tick)
+                    //begin
+                     //   rd_uart_reg_next = 1'b0;
+                      //  aux_send_next = 1'b1;
+                    //end
+                if(~i_rx_empty)
                     begin
                         state_next = SAVE_OP2;
                         op1_next = i_r_data;
-                        rd_uart_reg_next = 1'b0;
-                        aux_send_next = 1'b0;
+                        rd_uart_reg_next = 1'b1;
+                        //aux_send_next = 1'b0;
                     end
             end
             SAVE_OP2: 
             begin
                 //state_next = COMPUTE_ALU;
                 //op2_next = i_r_data;
-                //rd_uart_reg_next = 1'b1;
-                if(i_rx_done_tick)
-                    begin
-                        rd_uart_reg_next = 1'b1;
-                        aux_send_next = 1'b1;
-                    end
-                if(~i_rx_empty && aux_send)
+                rd_uart_reg_next = 1'b0;
+                //if(i_rx_done_tick)
+                  //  begin
+                    //    rd_uart_reg_next = 1'b0;
+                      //  aux_send_next = 1'b1;
+                    //end
+                if(~i_rx_empty)
                     begin
                         state_next = COMPUTE_ALU;
                         op2_next = i_r_data;
-                        rd_uart_reg_next = 1'b0;
-                        aux_send_next = 1'b0;
+                        rd_uart_reg_next = 1'b1;
+                        //aux_send_next = 1'b0;
                     end
             end
             COMPUTE_ALU: 
             begin
-                //rd_uart_reg_next = 1'b0;
+                rd_uart_reg_next = 1'b0;
                 //state_next = SEND_RESULT;
-                if(i_rx_done_tick)
-                    begin
-                        rd_uart_reg_next = 1'b1;
-                        aux_send_next = 1'b1;
-                    end
-                if(~i_rx_empty && aux_send)
+                //if(i_rx_done_tick)
+                  //  begin
+                    //    rd_uart_reg_next = 1'b0;
+                      //  aux_send_next = 1'b0;
+                    //end
+                if(~i_rx_empty)
                     begin
                         state_next = SEND_RESULT;
                         opcode_next = i_r_data[OPCODE_SZ-1 : 0];
-                        rd_uart_reg_next = 1'b0;
+                        rd_uart_reg_next = 1'b1;
                         aux_send_next = 1'b0;
                     end
             end
             SEND_RESULT: 
             begin
+                rd_uart_reg_next = 1'b0;
                 if (~i_tx_full && ~aux_send) 
                     begin
                         result_next = i_result_data; 
