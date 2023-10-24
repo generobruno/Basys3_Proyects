@@ -66,9 +66,9 @@ module uart_alu_tb();
     begin
         for (i = 0; i < NUM_TESTS; i = i + 1) begin
             if (i == 2)
-                data_to_send = 8'b00000100; // ADD
+                data_to_send = 8'b00100000; // ADD
             else
-                data_to_send = 8'b10000000;
+                data_to_send = 8'b00000101;
 
             // Send Start bit
             i_rx = 1'b0;

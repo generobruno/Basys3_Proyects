@@ -32,14 +32,15 @@ module uart_alu_interface
         SAVE_OP1    =   3'b001,
         SAVE_OP2    =   3'b010,
         COMPUTE_ALU =   3'b011,
-        SEND_RESULT =   3'b100;
+        SEND_RESULT =   3'b100,
+        HOLD        =   3'b111;
 
     //! Signal Declaration
     //reg [DATA_WIDTH-1 : 0] r_data, w_data;
     reg [2:0] state_reg, state_next;
     reg rd_uart_reg, rd_uart_reg_next;
     reg wr_uart_reg, wr_uart_reg_next;
-    reg aux_send, aux_send_next;
+    reg [2:0] aux_send, aux_send_next;
 
     // Registers to store received data //TODO Cambiar a array de regs?
     reg [OPCODE_SZ-1 : 0] opcode, opcode_next;
@@ -56,7 +57,7 @@ module uart_alu_interface
             // Control
             rd_uart_reg <= 1'b0;
             wr_uart_reg <= 1'b0;
-            aux_send <= 1'b0;
+            aux_send <= IDLE;
             // Data
             opcode <= {OPCODE_SZ {1'b0}};
             op1 <= {DATA_WIDTH{1'b0}};
@@ -94,60 +95,45 @@ module uart_alu_interface
             IDLE: 
             begin
                 wr_uart_reg_next = 1'b0;
-                //aux_send_next = 1'b0;
+                rd_uart_reg_next = 1'b0;
                 if (~i_rx_empty) 
                     begin
                         state_next = SAVE_OP1;
-                        //aux_send_next = 1'b1;
-                        //opcode_next = i_r_data[OPCODE_SZ-1 : 0];
-                        //rd_uart_reg_next = 1'b1;
+                        rd_uart_reg_next = 1'b1;
                     end
             end
             SAVE_OP1: 
             begin
-                //state_next = SAVE_OP2;
-                //op1_next = i_r_data;
-                //rd_uart_reg_next = 1'b1;
-                //if(i_rx_done_tick)
-                    //begin
-                     //   rd_uart_reg_next = 1'b0;
-                      //  aux_send_next = 1'b1;
-                    //end
                 if(~i_rx_empty)
                     begin
-                        state_next = SAVE_OP2;
                         op1_next = i_r_data;
                         rd_uart_reg_next = 1'b1;
-                        //aux_send_next = 1'b0;
+                        state_next = SAVE_OP2;
+                    end
+                else
+                    begin
+                        rd_uart_reg_next = 1'b0;
+                        state_next = HOLD;
+                        aux_send_next = SAVE_OP1;
                     end
             end
             SAVE_OP2: 
             begin
-                //state_next = COMPUTE_ALU;
-                //op2_next = i_r_data;
-                rd_uart_reg_next = 1'b0;
-                //if(i_rx_done_tick)
-                  //  begin
-                    //    rd_uart_reg_next = 1'b0;
-                      //  aux_send_next = 1'b1;
-                    //end
                 if(~i_rx_empty)
                     begin
-                        state_next = COMPUTE_ALU;
                         op2_next = i_r_data;
                         rd_uart_reg_next = 1'b1;
-                        //aux_send_next = 1'b0;
+                        state_next = COMPUTE_ALU;
+                    end
+                else
+                    begin
+                        rd_uart_reg_next = 1'b0;
+                        state_next = HOLD;
+                        aux_send_next = SAVE_OP2;
                     end
             end
             COMPUTE_ALU: 
             begin
-                rd_uart_reg_next = 1'b0;
-                //state_next = SEND_RESULT;
-                //if(i_rx_done_tick)
-                  //  begin
-                    //    rd_uart_reg_next = 1'b0;
-                      //  aux_send_next = 1'b0;
-                    //end
                 if(~i_rx_empty)
                     begin
                         state_next = SEND_RESULT;
@@ -155,15 +141,21 @@ module uart_alu_interface
                         rd_uart_reg_next = 1'b1;
                         aux_send_next = 1'b0;
                     end
+                else
+                    begin
+                        rd_uart_reg_next = 1'b0;
+                        state_next = HOLD;
+                        aux_send_next = COMPUTE_ALU;
+                    end
             end
             SEND_RESULT: 
             begin
                 rd_uart_reg_next = 1'b0;
-                if (~i_tx_full && ~aux_send) 
+                if (~i_tx_full) 
                     begin
                         result_next = i_result_data; 
-                        aux_send_next = 1'b1;
                         wr_uart_reg_next = 1'b1;
+                        state_next = IDLE;
                     end
                 else
                     begin
@@ -173,7 +165,14 @@ module uart_alu_interface
                     begin
                         state_next = IDLE;
                     end
-                // Else, if the transmitter FIFO is full, stay in the current state
+            end
+            HOLD:
+            begin
+                if(~i_rx_empty)
+                    begin
+                        state_next = aux_send;
+                        rd_uart_reg_next = 1'b1;
+                    end
             end
             default: state_next = IDLE;
         endcase
@@ -181,8 +180,8 @@ module uart_alu_interface
     end
 
     //! Assignments
-    assign o_rd_uart = rd_uart_reg;     // Read UART Signal
     assign o_w_data = result;           // Write UART (TX)
+    assign o_rd_uart = rd_uart_reg;     // Read UART Signal
     assign o_wr_uart = wr_uart_reg;     // Write UART Signal
     assign o_op_code = opcode;          // ALU Operation Code
     assign o_op_a = op1;                // ALU Operand A
