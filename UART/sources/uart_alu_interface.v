@@ -12,8 +12,7 @@ module uart_alu_interface
         input wire i_reset,                         // Reset
         input wire i_rx_empty,                      // Receiver FIFO Empty Signal
         input wire i_tx_full,                       // Transmitter FIFO Full Signal
-        input wire i_tx_done_tick,
-        input wire i_rx_done_tick,
+        input wire i_tx_done_tick,                  // Transmitter Done Signal
         input wire [DATA_WIDTH-1:0] i_r_data,       // UART Receiver Input
         input wire [DATA_WIDTH-1:0] i_result_data,  // ALU Result Register
         

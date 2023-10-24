@@ -25,7 +25,6 @@ module uart_top
         output wire                     o_rx_empty,         // Receiver FIFO Empty Signal
         output wire                     o_tx,               // Data transmitted
         output wire                     o_tx_done_tick,     // Transmission Done Signal
-        output wire                     o_rx_done_tick,
         output wire [DBIT-1 : 0]        o_r_data            //! Received data from Receiver FIFO -> DATA TO BE RECEIVED
     );
 
@@ -65,6 +64,5 @@ module uart_top
 
     assign tx_fifo_not_empty = ~tx_empty;
     assign o_tx_done_tick = tx_done_tick;
-    assign o_rx_done_tick = rx_done_tick;
 
 endmodule
