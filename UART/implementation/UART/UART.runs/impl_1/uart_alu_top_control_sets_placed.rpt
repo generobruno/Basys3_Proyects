@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date         : Tue Oct 24 17:16:42 2023
+| Date         : Wed Oct 25 19:37:53 2023
 | Host         : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_control_sets -verbose -file uart_alu_top_control_sets_placed.rpt
 | Design       : uart_alu_top
@@ -62,7 +62,7 @@ Table of Contents
 | No           | No                    | Yes                    |              39 |           18 |
 | No           | Yes                   | No                     |               0 |            0 |
 | Yes          | No                    | No                     |               0 |            0 |
-| Yes          | No                    | Yes                    |              54 |           27 |
+| Yes          | No                    | Yes                    |              54 |           23 |
 | Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
@@ -73,16 +73,16 @@ Table of Contents
 +------------------+-------------------------------------------+------------------+------------------+----------------+--------------+
 |   Clock Signal   |               Enable Signal               | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
 +------------------+-------------------------------------------+------------------+------------------+----------------+--------------+
-|  i_clk_IBUF_BUFG | uart_unit/uart_tx_unit/s_next             | i_reset_IBUF     |                2 |              4 |         2.00 |
-|  i_clk_IBUF_BUFG | uart_unit/uart_rx_unit/s_next             | i_reset_IBUF     |                1 |              4 |         4.00 |
+|  i_clk_IBUF_BUFG | uart_unit/uart_rx_unit/s_next             | i_reset_IBUF     |                2 |              4 |         2.00 |
+|  i_clk_IBUF_BUFG | uart_unit/uart_tx_unit/s_next             | i_reset_IBUF     |                1 |              4 |         4.00 |
 |  i_clk_IBUF_BUFG | uart_alu_interface_unit/opcode[5]_i_1_n_0 | i_reset_IBUF     |                2 |              6 |         3.00 |
-|  i_clk_IBUF_BUFG | uart_alu_interface_unit/op1[7]_i_1_n_0    | i_reset_IBUF     |                5 |              8 |         1.60 |
-|  i_clk_IBUF_BUFG | uart_unit/uart_tx_unit/b_next_0           | i_reset_IBUF     |                3 |              8 |         2.67 |
-|  i_clk_IBUF_BUFG | uart_alu_interface_unit/op2[7]_i_1_n_0    | i_reset_IBUF     |                5 |              8 |         1.60 |
-|  i_clk_IBUF_BUFG | uart_alu_interface_unit/result[7]_i_1_n_0 | i_reset_IBUF     |                8 |              8 |         1.00 |
-|  i_clk_IBUF_BUFG | uart_unit/uart_rx_unit/b_next             | i_reset_IBUF     |                1 |              8 |         8.00 |
-|  i_clk_IBUF_BUFG | uart_alu_interface_unit/wr_en__0          |                  |                2 |             12 |         6.00 |
+|  i_clk_IBUF_BUFG | uart_unit/uart_rx_unit/b_next             | i_reset_IBUF     |                3 |              8 |         2.67 |
+|  i_clk_IBUF_BUFG | uart_alu_interface_unit/op2[7]_i_1_n_0    | i_reset_IBUF     |                3 |              8 |         2.67 |
+|  i_clk_IBUF_BUFG | uart_unit/uart_tx_unit/b_next_0           | i_reset_IBUF     |                2 |              8 |         4.00 |
+|  i_clk_IBUF_BUFG | uart_alu_interface_unit/result[7]_i_1_n_0 | i_reset_IBUF     |                7 |              8 |         1.14 |
+|  i_clk_IBUF_BUFG | uart_alu_interface_unit/op1[7]_i_1_n_0    | i_reset_IBUF     |                3 |              8 |         2.67 |
 |  i_clk_IBUF_BUFG | uart_unit/uart_rx_unit/wr_en              |                  |                2 |             12 |         6.00 |
+|  i_clk_IBUF_BUFG | uart_alu_interface_unit/wr_en__0          |                  |                2 |             12 |         6.00 |
 |  i_clk_IBUF_BUFG |                                           | i_reset_IBUF     |               18 |             39 |         2.17 |
 +------------------+-------------------------------------------+------------------+------------------+----------------+--------------+
 

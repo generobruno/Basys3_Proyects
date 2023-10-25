@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date         : Tue Oct 24 17:15:56 2023
+| Date         : Wed Oct 25 19:37:16 2023
 | Host         : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_utilization -file uart_alu_top_utilization_synth.rpt -pb uart_alu_top_utilization_synth.pb
 | Design       : uart_alu_top
@@ -31,8 +31,8 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*                |  148 |     0 |          0 |     20800 |  0.71 |
-|   LUT as Logic             |  132 |     0 |          0 |     20800 |  0.63 |
+| Slice LUTs*                |  131 |     0 |          0 |     20800 |  0.63 |
+|   LUT as Logic             |  115 |     0 |          0 |     20800 |  0.55 |
 |   LUT as Memory            |   16 |     0 |          0 |      9600 |  0.17 |
 |     LUT as Distributed RAM |   16 |     0 |            |           |       |
 |     LUT as Shift Register  |    0 |     0 |            |           |       |
@@ -155,9 +155,9 @@ Warning! LUT value is adjusted to account for LUT combining.
 +----------+------+---------------------+
 | FDCE     |   90 |        Flop & Latch |
 | LUT5     |   47 |                 LUT |
-| LUT6     |   41 |                 LUT |
+| LUT6     |   39 |                 LUT |
 | LUT4     |   27 |                 LUT |
-| LUT3     |   23 |                 LUT |
+| LUT3     |   25 |                 LUT |
 | RAMD32   |   20 |  Distributed Memory |
 | MUXF7    |    8 |               MuxFx |
 | RAMS32   |    4 |  Distributed Memory |

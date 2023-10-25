@@ -125,9 +125,9 @@ start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
+  set_param xicom.use_bs_reader 1
   set_param chipscope.maxJobs 1
   set_param checkpoint.writeSynthRtdsInDcp 1
-  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-427013-BrunoLaptop/incrSyn
   set_param runs.launchOptions { -jobs 2  }
   open_checkpoint uart_alu_top_routed.dcp
   set_property webtalk.parent_dir /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/UART/implementation/UART/UART.cache/wt [current_project]

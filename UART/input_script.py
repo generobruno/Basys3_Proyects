@@ -3,62 +3,45 @@ import re
 
 try:
     # Serial port configuration
-    ser = serial.Serial('/dev/ttyUSB1', baudrate=19200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+    ser = serial.Serial('/dev/ttyUSB1', baudrate=19200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=1)
 except serial.SerialException:
     print("Error: Serial port not found or cannot be configured.")
     ser = None
 
 # Opcode mapping
 opcode_map = {
-    "ADD": "00100000",
-    "SUB": "00100010",
-    "AND": "00100100",
-    "OR":  "00100101",
-    "XOR": "00100110",
-    "SRA": "00000011",
-    "SRL": "00000010",
-    "NOR": "00100111"
+    "ADD": b'\x20',
+    "SUB": b'\x22',
+    "AND": b'\x24',
+    "OR":  b'\x25',
+    "XOR": b'\x26',
+    "SRA": b'\x03',
+    "SRL": b'\x02',
+    "NOR": b'\x27'
 }
-
-def invert_bits(byte):
-    return byte[::-1]
 
 def send_data(opcode, op1, op2):
     # Check if the opcode is valid
     if opcode.upper() in opcode_map:
-        opcode_binary = opcode_map[opcode.upper()]
+        opcode_byte = opcode_map[opcode.upper()]
 
-        # Convert operands to 8-bit binary strings with MSB set to 1 for signed numbers
-        op1_binary = format(op1 , '08b')
-        op2_binary = format(op2 , '08b')
+        # Convert operands to bytes with MSB set to 1 for signed numbers
+        op1_byte = op1.to_bytes(1, byteorder='big', signed=True)
+        op2_byte = op2.to_bytes(1, byteorder='big', signed=True)
 
-        # Set the MSB to 1 for negative values
-        if op1 < 0:
-            op1_binary = '1' + op1_binary[1:]
-        if op2 < 0:
-            op2_binary = '1' + op2_binary[1:]
-        
-        # Invert the bits for all bytes
-        opcode_binary = invert_bits(opcode_binary)
-        op1_binary = invert_bits(op1_binary)
-        op2_binary = invert_bits(op2_binary)
-        
-        data_to_send = f"{opcode_binary}_{op1_binary}_{op2_binary}"
-
-        # Print binary data sent
-        print(f"Sending: {data_to_send}")
+        # Print data sent
+        print(f"Sending: {opcode_byte + op1_byte + op2_byte}")
 
         if ser:
-            # Send the data to the serial port
-            ser.write(opcode_binary.encode())
-            ser.write(op1_binary.encode())
-            ser.write(op2_binary.encode())
-            
+            # Send the data to the serial port in the order: opcode, op1, op2
+            data_to_send = op1_byte + op2_byte + opcode_byte
+            ser.write(data_to_send)
+
             # Wait for the response
-            response = ser.read(8)  # Assuming the response is 8 bits long
+            response = ser.read(1)  # Assuming the response is 1 byte long
 
             # Print binary response
-            response_binary = invert_bits(format(int(response.hex(), 16), '08b'))
+            response_binary = response.hex()
             print(f"Received: {response_binary}")
 
         else:
