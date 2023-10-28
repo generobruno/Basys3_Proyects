@@ -19,6 +19,8 @@ El módulo alu.v representa la Unidad de Lógica Aritmética (ALU). Es responsab
 
 Este módulo ALU es parametrizable y realiza varias operaciones aritméticas y lógicas según la operación especificada en i_alu_Op. Las operaciones disponibles y sus códigos de operación se detallan en los comentarios. Los resultados de las operaciones se almacenan en alu_Result y se envían a la salida o_alu_Result. El módulo se instancia con parámetros personalizables N y NSel para ajustar el tamaño de la ALU y el tamaño de la operación ALU según las necesidades del proyecto.
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/d2c2f0fc-3309-4635-9200-fd4fb126db0a)
+
 ## [Módulo FIFO](sources/fifo.v)
 
 El módulo fifo.v implementa un búfer de tipo Primero en Entrar, Primero en Salir (FIFO). Los FIFO son esenciales para gestionar el flujo de datos en el proyecto. Permite operaciones de escritura y lectura, y rastrea su estado para indicar si está lleno o vacío. Aquí hay una explicación de sus principales características:
@@ -35,6 +37,8 @@ El módulo fifo.v implementa un búfer de tipo Primero en Entrar, Primero en Sal
 
 6. Tamaño Parametrizable: El tamaño del búfer FIFO es parametrizable, lo que permite adaptarlo a las necesidades del sistema. Los parámetros B y W permiten especificar el número de bits en una palabra y el número de bits de dirección, respectivamente.
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/beb2abba-fb7a-40c6-84c6-145458ba0bf4)
+
 ## [Módulo Mod-M Counter](sources/mod_m_counter.v)
 
 El módulo mod_m_counter es un contador parametrizado que cuenta desde 0 hasta M-1, donde M es un parámetro especificado. Aquí está una descripción de sus características:
@@ -48,6 +52,8 @@ El módulo mod_m_counter es un contador parametrizado que cuenta desde 0 hasta M
 4. Función log2: Se incluye una función log2 que calcula el logaritmo en base 2 de un número entero. Esto se utiliza para calcular el valor de N a partir de M.
 
 El módulo mod_m_counter es útil para implementar contadores modulares con límites personalizables en sistemas digitales. El contador cuenta de 0 a M-1 y luego se reinicia.
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/c88dfd71-0bb5-4992-a7c6-f6b940da3636)
 
 ## [Módulo UART RX](sources/uart_rx.v)
 
@@ -143,6 +149,8 @@ El módulo `uart_top` se configura con los siguientes parámetros predeterminado
 - `o_tx_done_tick` (Transmission Done Signal): Señal que indica que la transmisión se ha completado.
 - `o_r_data` (Received Data): Datos recibidos por el UART.
 
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/4154e769-6484-4194-ab5b-dd16052ba3fb)
+
 ## [Módulo UART-ALU Interface](sources/uart_alu_interface.v)
 
 El módulo llamado `uart_alu_interface` sirve como una interfaz entre el UART y la ALU. Su función es recibir datos del UART, procesarlos en la ALU y luego transmitir los resultados de nuevo a través del UART. El módulo funciona mediante una máquina de estados que coordina las diversas etapas del proceso.
@@ -187,6 +195,8 @@ A continuación, se explican las partes clave del código:
 - El estado `SEND_RESULT` se encarga de transmitir los resultados de vuelta a través del UART.
 - El estado `HOLD` se utiliza cuando el módulo debe esperar antes de continuar con el siguiente estado.
 - Cuando se completa una transmisión, el módulo regresa al estado `IDLE`.
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/3dbd30bd-5faa-401c-b9fc-27bbfebf51ad)
 
 Este módulo permite la comunicación bidireccional entre el UART y la ALU y coordina la transmisión y recepción de datos a través del UART junto con las operaciones de la ALU. La máquina de estados garantiza que el proceso se ejecute de manera eficiente y controlada.
 
@@ -235,6 +245,8 @@ El módulo `uart_top` es el nivel más alto del proyecto que coordina la comunic
 **Asignaciones:**
 
 - `assign tx_fifo_not_empty = ~tx_empty;` y `assign o_tx_done_tick = tx_done_tick;` se utilizan para definir señales en función de otros valores internos del módulo.
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/126a378a-dd30-4eee-8bb7-bb8430309a0a)
 
 ## [Módulo UART-ALU TestBench](tests/uart_alu_tb.v)
 
