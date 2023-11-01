@@ -283,4 +283,9 @@ Este script permite a los usuarios interactuar con un dispositivo que comprende 
 
 ## Análisis con Osciloscopio
 
-TODO
+A continuación se muestran unos ejemplos de operaciones analizadas con osciloscopio.
+
+ADD 2,3 = 5 -> 0 (start) + 10100000 (5 binario espejado) + 1 (stop)
+
+![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/7968fe0e-58d6-4155-a2fd-6fc27cb77b84)
+
