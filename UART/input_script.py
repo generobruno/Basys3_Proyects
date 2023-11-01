@@ -40,9 +40,17 @@ def send_data(opcode, op1, op2):
             # Wait for the response
             response = ser.read(1)  # Assuming the response is 1 byte long
 
-            # Print binary response
-            response_binary = response.hex()
-            print(f"Received: {response_binary}")
+            # Determine if the operation is ADD or SUB
+            is_add_or_sub = opcode.upper() in ["ADD", "SUB"]
+
+            if is_add_or_sub:
+                # Print result in decimal
+                response_decimal = int.from_bytes(response, byteorder='big', signed=True)
+                print(f"Received: {response_decimal}")
+            else:
+                # Print binary response (8 bits) for other operations
+                response_binary = format(int.from_bytes(response, byteorder='big', signed=True), '08b')
+                print(f"Received: {response_binary}")
 
         else:
             print("No serial port available. Printing data only.")
