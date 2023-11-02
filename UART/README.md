@@ -250,7 +250,37 @@ El módulo `uart_top` es el nivel más alto del proyecto que coordina la comunic
 
 ## [Módulo UART-ALU TestBench](tests/uart_alu_tb.v)
 
-TODO
+**Parámetros:**
+El testbench comienza definiendo varios parámetros importantes:
+
+- `T`: El periodo del reloj en nanosegundos.
+- `CLKS_PER_BIT`: El número de ciclos de reloj por bit. Esto se calcula para una velocidad de baudios de 19200 y una frecuencia de reloj de 50 MHz.
+- `BIT_PERIOD`: El periodo de un solo bit en ciclos de reloj.
+- `TX_PERIOD`: El periodo de transmisión de datos.
+- `NUM_TESTS`: El número de pruebas que se ejecutarán.
+
+Luego, se definen constantes para operaciones específicas, como la suma, resta, AND, OR, XOR, SRA, SRL y NOR.
+
+**Declaraciones de señales:**
+El banco de pruebas declara varias señales de entrada (`i_clk`, `i_reset`, `i_rx`, `i_rd_uart`, `i_wr_uart`, `tx_data`, `i_w_data`) y señales de salida (`o_tx`, `o_tx_full`, `o_rx_empty`, `tx_to_rx`, `o_r_data`) que se utilizan para comunicarse con el módulo UART bajo prueba.
+
+También se declara un registro llamado `data_to_send` que almacena los datos que se enviarán.
+
+**Generación de Reloj:**
+Se crea una señal de reloj (`i_clk`) con un periodo especificado, alternando entre 1 y 0 para simular el reloj del sistema.
+
+**Restablecimiento:**
+El banco de pruebas realiza un restablecimiento inicial, donde la señal `i_reset` se coloca en 1 durante medio período del reloj y luego se desactiva a 0.
+
+**Tareas (tasks):**
+El banco de pruebas incluye dos tareas (tasks) llamadas `UART_RECEIVE_BYTE` y `UART_SEND_BYTE`. Estas tareas simulan la transmisión y recepción de datos a través de la UART.
+
+- `UART_RECEIVE_BYTE`: Simula la recepción de datos y envía una serie de bits con una señal de inicio, datos y una señal de parada.
+- `UART_SEND_BYTE`: Simula la transmisión de datos generados aleatoriamente.
+
+**Casos de Prueba:**
+En la sección `initial`, se inicializan algunas señales y se espera a que el restablecimiento se desactive. Luego, se ejecutan las tareas `UART_RECEIVE_BYTE` y `UART_SEND_BYTE` para enviar y recibir datos a través de la UART.
+Para probar distintos casos de prueba, se deben cambiar las lineas 69 y 71, para probar distintos OPCODEs y Operandos.
 
 ## [Input Script](/input_script.py)
 
@@ -285,7 +315,15 @@ Este script permite a los usuarios interactuar con un dispositivo que comprende 
 
 A continuación se muestran unos ejemplos de operaciones analizadas con osciloscopio.
 
-ADD 2,3 = 5 -> 0 (start) + 10100000 (5 binario espejado) + 1 (stop)
+ADD 2,3 = 5 (0000_0101) -> 0 (start) + 10100000 (5 binario espejado) + 1 (stop)
 
 ![image](https://github.com/generobruno/Basys3_Proyects/assets/36767810/7968fe0e-58d6-4155-a2fd-6fc27cb77b84)
+
+ADD 22,15 = 37 (0010_0101) -> 0 (start) + 10100100 (37 binario espejado) + 1 (stop)
+
+![imagen](https://github.com/generobruno/Basys3_Proyects/assets/36767810/626e15bc-4018-4d93-a686-85d5483c87f7)
+
+SUB 2,30 = -28 (1110_0100) -> 0 (start) + 00100111 (-28 binario espejado) + 1 (stop)
+
+![imagen](https://github.com/generobruno/Basys3_Proyects/assets/36767810/e8bb5f4c-614a-4299-9c4e-4a17616f57bd)
 
