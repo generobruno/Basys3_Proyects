@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date             : Wed Oct 25 19:38:09 2023
+| Date             : Wed Nov  1 18:28:21 2023
 | Host             : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command          : report_power -file uart_alu_top_power_routed.rpt -pb uart_alu_top_power_summary_routed.pb -rpx uart_alu_top_power_routed.rpx
 | Design           : uart_alu_top
@@ -33,7 +33,7 @@ Table of Contents
 | Total On-Chip Power (W)  | 0.073        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.001        |
+| Dynamic (W)              | 0.002        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 99.6         |
@@ -52,16 +52,16 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |    <0.001 |        3 |       --- |             --- |
-| Slice Logic              |    <0.001 |      278 |       --- |             --- |
+| Clocks                   |     0.001 |        3 |       --- |             --- |
+| Slice Logic              |    <0.001 |      279 |       --- |             --- |
 |   LUT as Logic           |    <0.001 |      111 |     20800 |            0.53 |
-|   Register               |    <0.001 |       93 |     41600 |            0.22 |
+|   Register               |    <0.001 |       94 |     41600 |            0.23 |
 |   LUT as Distributed RAM |    <0.001 |       12 |      9600 |            0.13 |
 |   CARRY4                 |    <0.001 |        2 |      8150 |            0.02 |
 |   F7/F8 Muxes            |    <0.001 |        8 |     32600 |            0.02 |
 |   Others                 |     0.000 |        9 |       --- |             --- |
-| Signals                  |    <0.001 |      185 |       --- |             --- |
-| I/O                      |    <0.001 |        4 |       106 |            3.77 |
+| Signals                  |    <0.001 |      187 |       --- |             --- |
+| I/O                      |    <0.001 |        5 |       106 |            4.72 |
 | Static Power             |     0.072 |          |           |                 |
 | Total                    |     0.073 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.011 |       0.001 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.011 |       0.002 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -142,7 +142,7 @@ Table of Contents
 +--------------+-----------+
 | Name         | Power (W) |
 +--------------+-----------+
-| uart_alu_top |     0.001 |
+| uart_alu_top |     0.002 |
 +--------------+-----------+
 
 

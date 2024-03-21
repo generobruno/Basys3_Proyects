@@ -14,7 +14,8 @@ module uart_alu_top
         input wire i_reset,                 // Reset
         input wire i_rx,                    // UART Rx
         // Outputs
-        output wire o_tx                    // UART Tx
+        output wire o_tx,                   // UART Tx
+        output wire o_test
     );
 
     //! Signal Declaration
@@ -92,5 +93,7 @@ module uart_alu_top
         .o_op_b(op_b),
         .o_op_code(op_code)
     );
+    
+    assign o_test = o_tx;
 
 endmodule

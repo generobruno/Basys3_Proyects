@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date         : Wed Oct 25 19:37:16 2023
+| Date         : Wed Nov  1 18:27:29 2023
 | Host         : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_utilization -file uart_alu_top_utilization_synth.rpt -pb uart_alu_top_utilization_synth.pb
 | Design       : uart_alu_top
@@ -94,7 +94,7 @@ Warning! LUT value is adjusted to account for LUT combining.
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |    4 |     0 |          0 |       106 |  3.77 |
+| Bonded IOB                  |    5 |     0 |          0 |       106 |  4.72 |
 | Bonded IPADs                |    0 |     0 |          0 |        10 |  0.00 |
 | Bonded OPADs                |    0 |     0 |          0 |         4 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         5 |  0.00 |
@@ -164,9 +164,9 @@ Warning! LUT value is adjusted to account for LUT combining.
 | LUT2     |    3 |                 LUT |
 | IBUF     |    3 |                  IO |
 | FDPE     |    3 |        Flop & Latch |
+| OBUF     |    2 |                  IO |
 | LUT1     |    2 |                 LUT |
 | CARRY4   |    2 |          CarryLogic |
-| OBUF     |    1 |                  IO |
 | BUFG     |    1 |               Clock |
 +----------+------+---------------------+
 

@@ -37,7 +37,6 @@ module uart_alu_interface
     //! Signal Declaration
     //reg [DATA_WIDTH-1 : 0] r_data, w_data;
     reg [2:0] state_reg, state_next;
-    reg rd_uart_reg, rd_uart_reg_next;
     reg wr_uart_reg, wr_uart_reg_next;
     reg [2:0] aux_send, aux_send_next;
 

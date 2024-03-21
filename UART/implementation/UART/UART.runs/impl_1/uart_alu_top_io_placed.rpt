@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date                      : Wed Oct 25 19:37:53 2023
+| Date                      : Wed Nov  1 18:28:02 2023
 | Host                      : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command                   : report_io -file uart_alu_top_io_placed.rpt
 | Design                    : uart_alu_top
@@ -25,7 +25,7 @@ Table of Contents
 +---------------+
 | Total User IO |
 +---------------+
-|             4 |
+|             5 |
 +---------------+
 
 
@@ -48,7 +48,7 @@ Table of Contents
 | A11        |             | Dedicated  | DXP_0                        | Temp Sensor   |             |       0 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A12        |             | Dedicated  | VP_0                         | XADC          |             |       0 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A13        |             | Dedicated  | VREFN_0                      | XADC          |             |       0 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| A14        |             | High Range | IO_L6P_T0_16                 | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
+| A14        | o_test      | High Range | IO_L6P_T0_16                 | OUTPUT        | LVCMOS33    |      16 |         12 | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | A15        |             | High Range | IO_L6N_T0_VREF_16            | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A16        |             | High Range | IO_L12P_T1_MRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | A17        |             | High Range | IO_L12N_T1_MRCC_16           | User IO       |             |      16 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |

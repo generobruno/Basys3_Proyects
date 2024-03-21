@@ -1,0 +1,11 @@
+customtkinter==5.2.2
+darkdetect==0.8.0
+future==1.0.0
+iso8601==2.1.0
+packaging==24.0
+pyserial==3.5
+PyYAML==6.0.1
+regex==2023.12.25
+serial==0.0.97
+subprocess.run==0.0.8
+tk==0.1.0

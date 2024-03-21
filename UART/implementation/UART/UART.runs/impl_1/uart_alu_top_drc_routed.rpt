@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date         : Wed Oct 25 19:38:08 2023
+| Date         : Wed Nov  1 18:28:19 2023
 | Host         : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_drc -file uart_alu_top_drc_routed.rpt -pb uart_alu_top_drc_routed.pb -rpx uart_alu_top_drc_routed.rpx
 | Design       : uart_alu_top

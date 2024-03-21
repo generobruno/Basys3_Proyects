@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-| Date         : Wed Oct 25 19:38:09 2023
+| Date         : Wed Nov  1 18:28:20 2023
 | Host         : BrunoLaptop running 64-bit Ubuntu 22.04.3 LTS
 | Command      : report_methodology -file uart_alu_top_methodology_drc_routed.rpt -pb uart_alu_top_methodology_drc_routed.pb -rpx uart_alu_top_methodology_drc_routed.rpx
 | Design       : uart_alu_top
@@ -23,11 +23,11 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 3
+             Violations found: 4
 +-----------+----------+-------------------------------+------------+
 | Rule      | Severity | Description                   | Violations |
 +-----------+----------+-------------------------------+------------+
-| TIMING-18 | Warning  | Missing input or output delay | 3          |
+| TIMING-18 | Warning  | Missing input or output delay | 4          |
 +-----------+----------+-------------------------------+------------+
 
 2. REPORT DETAILS
@@ -43,6 +43,11 @@ An input delay is missing on i_rx relative to the rising and/or falling clock ed
 Related violations: <none>
 
 TIMING-18#3 Warning
+Missing input or output delay  
+An output delay is missing on o_test relative to the rising and/or falling clock edge(s) of sys_clk_pin.
+Related violations: <none>
+
+TIMING-18#4 Warning
 Missing input or output delay  
 An output delay is missing on o_tx relative to the rising and/or falling clock edge(s) of sys_clk_pin.
 Related violations: <none>
