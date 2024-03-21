@@ -182,10 +182,9 @@ module pipeline_uart_test();
         //#(T*10);
 
         $display("Programm finished. Receiving Data...");        
-        // Read UART
+        // Read UART //TODO Modify to read 260 bytes
         repeat (66) begin
             @(negedge i_clk);
-            #(T*5);
             i_rd_uart = 1'b1;   // Read FIFO           
             $display("Received bits: %b \t(addr: %b)", o_r_data, debug_addr);
             @(negedge i_clk);
