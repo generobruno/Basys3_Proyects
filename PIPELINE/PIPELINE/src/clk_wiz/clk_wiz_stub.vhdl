@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
--- Date        : Wed Mar 20 16:31:39 2024
+-- Date        : Thu Mar 21 18:23:53 2024
 -- Host        : BrunoLaptop running 64-bit Ubuntu 22.04.4 LTS
 -- Command     : write_vhdl -force -mode synth_stub
---               /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Ejercicios_Verilog/sources/PIPELINE_Test/PIPELINE/src/clk_wiz/clk_wiz_stub.vhdl
+--               /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/PIPELINE/PIPELINE/src/clk_wiz/clk_wiz_stub.vhdl
 -- Design      : clk_wiz
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a35tcpg236-3
