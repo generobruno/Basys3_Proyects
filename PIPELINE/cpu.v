@@ -20,9 +20,7 @@ module cpu
         input wire  i_reset,            // Reset
         input wire  i_rx,               // UART Rx
         // Outputs
-        output wire o_tx,               // UART Tx
-        output wire     [7 : 0]             o_prog_sz, //TODO REMOVE
-        output wire     [7 : 0]             o_state  //TODO REMOVE
+        output wire o_tx                // UART Tx
     );
 
     //! Signal Declaration
@@ -75,9 +73,7 @@ module cpu
         .o_tx(o_tx),
         .o_instruction(inst),
         .o_mem_w(write), .o_enable(enable),
-        .o_addr(debug_addr),
-        .o_prog_sz(o_prog_sz), //TODO Remove
-        .o_state(o_state)     //TODO Remove
+        .o_addr(debug_addr)
     );
 
     // Clock

@@ -33,12 +33,7 @@ module uart_interface
         output wire o_write_mem,                    // Write Instruction Memory Signal
         output wire o_enable,                       // Enable Pipeline Execution Signal
         output wire [INST_SZ-1 : 0] o_inst,         // Instruction to write
-        output wire [W-1 : 0] o_addr,               // Register/Memory Debug Address
-
-        /*Test Variables */ 
-        output wire [7:0] o_prog_sz,        // //TODO Remover
-        output wire [7:0] o_state           // // TODO REMOVER
-        
+        output wire [W-1 : 0] o_addr                // Register/Memory Debug Address        
     );
     
     //! Signal Declaration
@@ -84,10 +79,7 @@ module uart_interface
     assign o_enable     =   enable;         
             
     assign o_rd         =   rd_reg;         
-    assign o_wr         =   wr_reg;         
-
-    assign o_prog_sz    =   prog_size_reg;  
-    assign o_state      =   mode_reg;       
+    assign o_wr         =   wr_reg;               
     
     //! FSMD States and Data Registers
     always @(posedge i_clk, posedge i_reset)

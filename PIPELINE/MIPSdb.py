@@ -15,7 +15,7 @@ class IDE(ctk.CTk):
                             bytesize=serial.EIGHTBITS, 
                             parity=serial.PARITY_NONE,
                             stopbits=serial.STOPBITS_ONE,
-                            timeout=1)
+                            timeout=3)
     except serial.SerialException:
         messagebox.showwarning("Serial Error", 
                                "Serial Port Not Found.\nYou need to connect it to run a program")
@@ -225,13 +225,13 @@ class IDE(ctk.CTk):
             print("Sending code through UART...")
             # Get Program Size (Number of lines)
             prog_sz = self.get_prog_size()
-            #print(prog_sz)
-            #print(format(prog_sz, '02X'))
+            print(prog_sz)
+            print(format(prog_sz, '02X'))
             
             # Try to write the code to the board
             try: #TODO REVISAR
                 # Send START Code #TODO -> Creo que ya no es necesario ahora
-                self.ser.write(bytes.fromhex('07'))
+                #self.ser.write(bytes.fromhex('07'))
                 
                 # Send LOAD_PROG_SIZE Code and Send Program Size
                 self.ser.write(bytes.fromhex('FE'))
@@ -242,10 +242,10 @@ class IDE(ctk.CTk):
                 with open(current_out_file + ".hex", 'r') as file:
                     for line in file:
                         hex_line = format(int(line.strip(), 2), '08X')  # Convert binary line to 8-byte hexadecimal
-                        #print(f'hex_line: {hex_line}')
+                        print(f'hex_line: {hex_line}')
                         for i in range(len(hex_line) - 2, -1, -2): # TODO Revisar Send from right to left
                             byte = hex_line[i:i+2]
-                            #print(f'bye: {byte}')
+                            print(f'bye: {byte}')
                             self.ser.write(bytes.fromhex(byte))
                             
                 print("Code Written to board!")
@@ -265,6 +265,7 @@ class IDE(ctk.CTk):
         program_counter_value = ""
         
         if len(read_data) >= 260:  # Ensure there are enough bytes to unpack
+            print(read_data)
             for i in range(0, 128, 4):  # Registers data
                 reg_value = struct.unpack('<I', read_data[i:i+4])[0]  # Unpack 4 bytes as an unsigned integer
                 registers_values[f"Reg {i//4}"] = f"{reg_value:#010x}"  # Format the register value as hexadecimal
@@ -275,11 +276,14 @@ class IDE(ctk.CTk):
             program_counter_value = f"{program_counter_value:#010x}"  # Format the PC value as hexadecimal
             
             # Update tables with new values
+            print(registers_values)
+            print(memory_values)
+            print(program_counter_value)
             self.update_table(self.registers_text, registers_values)
             self.update_table(self.memory_text, memory_values)
             self.pc_value_label.configure(text=f"Program Counter: {program_counter_value}")
         else:
-            print("Received data does not contain enough bytes to unpack.")
+            print(f"Received data does not contain enough bytes to unpack.\n{read_data}")
 
     """ run_code
         Send "run" code to the UART to execute the code, and wait for "halt" code
