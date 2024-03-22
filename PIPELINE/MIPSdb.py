@@ -11,11 +11,11 @@ class IDE(ctk.CTk):
     # Initialize serial port
     try:
         ser = serial.Serial('/dev/ttyUSB1', 
-                            baudrate=19200, 
+                            baudrate=115200, 
                             bytesize=serial.EIGHTBITS, 
                             parity=serial.PARITY_NONE,
                             stopbits=serial.STOPBITS_ONE,
-                            timeout=3)
+                            timeout=4)
     except serial.SerialException:
         messagebox.showwarning("Serial Error", 
                                "Serial Port Not Found.\nYou need to connect it to run a program")
@@ -276,9 +276,7 @@ class IDE(ctk.CTk):
             program_counter_value = f"{program_counter_value:#010x}"  # Format the PC value as hexadecimal
             
             # Update tables with new values
-            print(registers_values)
-            print(memory_values)
-            print(program_counter_value)
+            print(f'{registers_values}\n{memory_values}\n{program_counter_value}')
             self.update_table(self.registers_text, registers_values)
             self.update_table(self.memory_text, memory_values)
             self.pc_value_label.configure(text=f"Program Counter: {program_counter_value}")
