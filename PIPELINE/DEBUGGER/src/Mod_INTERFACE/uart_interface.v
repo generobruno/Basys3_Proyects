@@ -46,6 +46,7 @@ module uart_interface
     reg [W-1 : 0]           reg_counter, reg_counter_next;      // Auxiliar Counter (for number mem/reg size)
     reg [INST_SZ-1 : 0]     inst_reg, inst_reg_next;            // Instruction Register
     reg [N-1 : 0]           to_tx_fifo, to_tx_fifo_next;        // To UART Tx Registers
+    reg                     debugging, debugging_next;          // Debugging Mode Register
     reg                     rd_reg, wr_reg;                     // Read and Write UART Registers
     reg                     write_mem_reg;                      // Write Instructions Register
     reg                     enable;                             // Enable Register
@@ -100,6 +101,7 @@ module uart_interface
             to_tx_fifo      <=      {N{1'b0}};
             counter         <=      {3{1'b0}};
             reg_counter     <=      {W{1'b0}};
+            debugging       <=      1'b0;
             // Data
             inst_reg        <=      {32{1'b0}};
             prog_size_reg   <=      {8{1'b0}};
@@ -115,6 +117,7 @@ module uart_interface
             to_tx_fifo      <=      to_tx_fifo_next;
             counter         <=      counter_next;
             reg_counter     <=      reg_counter_next;
+            debugging       <=      debugging_next;
             // Data
             inst_reg        <=      inst_reg_next;
             prog_size_reg   <=      prog_size_reg_next;
@@ -137,6 +140,7 @@ module uart_interface
         inst_n_next         = inst_n;
         addr_reg_next       = addr_reg;
         reg_counter_next    = reg_counter;
+        debugging_next      = debugging;
 
         case(mode_reg)
                         
@@ -153,9 +157,25 @@ module uart_interface
                     mode_reg_next = WAIT;
                     wait_mode_reg_next = START;
                 end
-                else 
+                else if (i_data == LOAD_PROG_SIZE)
                 begin
                     mode_reg_next = i_data;
+                end
+                else if (i_data == DEBUG)
+                begin
+                    mode_reg_next = i_data;
+                end
+                else if (i_data == NO_DEBUG)
+                begin
+                    mode_reg_next = i_data;
+                end
+                else if (i_data == RESET)
+                begin
+                    mode_reg_next = i_data;
+                end
+                else
+                begin
+                    mode_reg_next = IDLE;
                 end
             end
             
@@ -208,18 +228,21 @@ module uart_interface
             
             DEBUG:  //! Start Debug Session
             begin
+                debugging_next = 1'b1;
                 if(i_data == NEXT)
                 begin
                     mode_reg_next = PREV_SEND;
                 end
-                else if(i_data == END_DEBUG)
+                else if(i_data == END_DEBUG | i_halt)
                 begin
+                    debugging_next = 1'b0;
                     mode_reg_next = RESET;
                 end
             end
             
             NO_DEBUG: //! Run program to the end
             begin
+                debugging_next = 1'b0;
                 if(i_halt)
                 begin
                     mode_reg_next = PREV_SEND;
@@ -238,6 +261,8 @@ module uart_interface
                     to_tx_fifo_next = i_reg_read[0+:8];
                     mode_reg_next = SEND_STATE_REG;
                     counter_next = counter + 1;
+                    reg_counter_next = reg_counter + 1;
+                    addr_reg_next = reg_counter + 1;
                 end
             end
             
@@ -250,7 +275,7 @@ module uart_interface
                 end
                 else 
                 begin
-                    if(reg_counter < 32)
+                    if(reg_counter < 31)
                     begin
                         to_tx_fifo_next = i_reg_read[8*counter+:8];
                         counter_next = counter +1;
@@ -278,7 +303,7 @@ module uart_interface
                 end
                 else 
                 begin
-                    if(reg_counter < 32)
+                    if(reg_counter < 31)
                     begin
                         to_tx_fifo_next = i_mem_read[8*counter+:8];
                         counter_next = counter +1;
@@ -318,14 +343,22 @@ module uart_interface
 
             END_SEND: //! End Send State
             begin
-                if(i_halt)
+                if(i_fifo_full)
                 begin
-                    mode_reg_next = RESET;        
+                    mode_reg_next = WAIT_SEND;
+                    wait_mode_reg_next = END_SEND;
                 end
-                else 
+                else
                 begin
-                    mode_reg_next = DEBUG;
-                end    
+                    if(debugging)
+                    begin
+                        mode_reg_next = DEBUG;        
+                    end
+                    else 
+                    begin
+                        mode_reg_next = RESET;
+                    end
+                end  
             end
 
             WAIT: //! Wait State
