@@ -185,6 +185,10 @@ class InstructionParser:
         if not instrType:
             return '', '', None
 
+        if instrType == 'HALT':
+            operator, operands = None, None
+            return instrType, operator, operands
+    
         # Parse Instruction Type tokens
         instrObj = self.instrObjMap[instrType]()
         operator, operands = instrObj.parseInstr(instr) 
@@ -207,7 +211,11 @@ class InstructionParser:
             formatFunc = self.formatFuncMap[format]
 
         # Get operator (Instruction Name) and operands
-        _, operator, operands = self.parse(instr)
+        instrType, operator, operands = self.parse(instr)
+        
+        if instrType == 'HALT':
+            return self.formatFuncMap[format](0b00000000000000000000000000111111, 32) 
+        
         if not operator:
             return ''
 
@@ -219,10 +227,12 @@ class InstructionParser:
         convertedOutput = convertedOpcode + ''.join(operands)
         return convertedOutput
 
-"""
+'''
 if __name__ == '__main__':
     # Test
     ip = InstructionParser()
+    print("HALT")
+    print(ip.convert('halt'))
     print("R-TYPE")
     print(ip.convert('sll $r6, $r2, $r0'))
     print(ip.convert('srl $r6, $r2, $r4'))
@@ -262,4 +272,4 @@ if __name__ == '__main__':
     print(ip.convert('jr $r3'))
     print(ip.convert('jalr $r3, $r5'))
     print(hex(int(ip.convert('addu $r6 $r2 $r4', format='binary'), 2)))
-"""
+'''

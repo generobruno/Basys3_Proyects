@@ -1,6 +1,7 @@
 # =+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-# MIPS Assembly to Hex Converter. 													 		     |
-# =+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+	 |
+# MIPS Assembly to Hex Converter. 		
+#   Based on: https://github.com/kashyapakshay/PyMIPS/tree/master
+# =+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 
 import sys
 import binascii
@@ -68,11 +69,11 @@ class Assembler(object):
                 hexadecimal_machine_code = binascii.hexlify(binary_machine_code.encode()).decode()
                 outlines.append(hexadecimal_machine_code)
 
-
         with open(self.outfilename,'w') as of:
-            for outline in outlines:
+            for i, outline in enumerate(outlines):
                 of.write(outline)
-                of.write("\n")
+                if i < len(outlines) - 1:  # Check if it's not the last line
+                    of.write("\n")
         of.close()
 
 if __name__ == "__main__":

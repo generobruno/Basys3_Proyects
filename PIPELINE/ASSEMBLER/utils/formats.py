@@ -79,6 +79,10 @@ class LookupTables:
             'jalr':     (0b000000, ['rs', 0b00000, 'rd', 0b00000], 0b001001),   # JALR rd, rs
             'j':        (0b000010, ['instr_index']),                            # J instr_index
             'jal':      (0b000011, ['instr_index'])                             # JAL instr_index
+        },
+        
+        'HALT': {
+            'halt':     (0b000000,[ 0b00000000000000000000 ], 0b111111)         # HALT
         }
     }
     
