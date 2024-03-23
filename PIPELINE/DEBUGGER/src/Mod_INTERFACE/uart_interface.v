@@ -82,7 +82,7 @@ module uart_interface
     assign o_wr         =   wr_reg;               
     
     //! FSMD States and Data Registers
-    always @(posedge i_clk, posedge i_reset)
+    always @(posedge i_clk)
     begin
         if(i_reset)
         begin
@@ -95,9 +95,9 @@ module uart_interface
             reg_counter     <=      {W{1'b0}};
             debugging       <=      1'b0;
             // Data
-            inst_reg        <=      {32{1'b0}};
+            inst_reg        <=      {INST_SZ{1'b0}};
             prog_size_reg   <=      {8{1'b0}};
-            inst_n          <=      {8{1'b0}};
+            inst_n          <=      {N{1'b0}};
             addr_reg        <=      {W{1'b0}};
         end
         else 
@@ -149,25 +149,30 @@ module uart_interface
                     mode_reg_next = WAIT;
                     wait_mode_reg_next = START;
                 end
-                else if (i_data == LOAD_PROG_SIZE)
+                else 
                 begin
-                    mode_reg_next = i_data;
-                end
-                else if (i_data == DEBUG)
-                begin
-                    mode_reg_next = i_data;
-                end
-                else if (i_data == NO_DEBUG)
-                begin
-                    mode_reg_next = i_data;
-                end
-                else if (i_data == RESET)
-                begin
-                    mode_reg_next = i_data;
-                end
-                else
-                begin
-                    mode_reg_next = IDLE;
+                    if (i_data == LOAD_PROG_SIZE)
+                    begin
+                        mode_reg_next = LOAD_PROG_SIZE;
+                    end
+                    else if (i_data == DEBUG)
+                    begin
+                        debugging_next = 1'b1;
+                        mode_reg_next = DEBUG;
+                    end
+                    else if (i_data == NO_DEBUG)
+                    begin
+                        debugging_next = 1'b0;
+                        mode_reg_next = NO_DEBUG;
+                    end
+                    else if (i_data == RESET)
+                    begin
+                        mode_reg_next = RESET;
+                    end
+                    else
+                    begin
+                        mode_reg_next = IDLE;
+                    end
                 end
             end
             
@@ -220,7 +225,6 @@ module uart_interface
             
             DEBUG:  //! Start Debug Session
             begin
-                debugging_next = 1'b1;
                 if(i_data == NEXT)
                 begin
                     mode_reg_next = PREV_SEND;
@@ -234,7 +238,6 @@ module uart_interface
             
             NO_DEBUG: //! Run program to the end
             begin
-                debugging_next = 1'b0;
                 if(i_halt)
                 begin
                     mode_reg_next = PREV_SEND;
@@ -348,7 +351,7 @@ module uart_interface
                     end
                     else 
                     begin
-                        mode_reg_next = RESET;
+                        mode_reg_next = RESET; //TODO IDLE or RESET
                     end
                 end  
             end
@@ -372,7 +375,10 @@ module uart_interface
 
             default: 
             begin
-                //TODO Poner cosas que se escriben en 0 (instructions, counter, address, etc)
+                inst_reg_next        =      {INST_SZ{1'b0}};
+                prog_size_reg_next   =      {N{1'b0}};
+                inst_n_next          =      {N{1'b0}};
+                addr_reg_next        =      {W{1'b0}};
             end
 
         endcase

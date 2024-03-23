@@ -11,7 +11,7 @@ module cpu
                     UART_SZ     =       8,      // UART Data Bits
                     W           =       5,      // Address Bits for Mem/Reg
                     SB_TICK     =       16,     // # Ticks for stop bits (16/24/32 for 1/1.5/2 bits)
-                    DVSR        =       43,     // Baud Rate divisor ( Clock/(BaudRate*16) )
+                    DVSR        =       260,    // Baud Rate divisor ( Clock/(BaudRate*16) )
                     FIFO_W      =       4       // # Address bits of FIFO ( # Words in FIFO = 2^FIFO_W )
     )
     (

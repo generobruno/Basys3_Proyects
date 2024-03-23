@@ -11,7 +11,7 @@ class IDE(ctk.CTk):
     # Initialize serial port
     try:
         ser = serial.Serial('/dev/ttyUSB1', 
-                            baudrate=115200, 
+                            baudrate=19200, 
                             bytesize=serial.EIGHTBITS, 
                             parity=serial.PARITY_NONE,
                             stopbits=serial.STOPBITS_ONE,
@@ -229,10 +229,7 @@ class IDE(ctk.CTk):
             print(format(prog_sz, '02X'))
             
             # Try to write the code to the board
-            try: #TODO REVISAR
-                # Send START Code #TODO -> Creo que ya no es necesario ahora
-                #self.ser.write(bytes.fromhex('07'))
-                
+            try: #TODO REVISAR                
                 # Send LOAD_PROG_SIZE Code and Send Program Size
                 self.ser.write(bytes.fromhex('FE'))
                 self.ser.write(bytes.fromhex(format(prog_sz, '02X')))  
@@ -321,7 +318,7 @@ class IDE(ctk.CTk):
         if self.ser: #TODO REVISAR
             # Send RESTART Code
             print("Restarting...")
-            self.ser.write(bytes.fromhex(''))
+            self.ser.write(bytes.fromhex('30'))
         else:
             messagebox.showwarning("Serial Error", "Serial Port Not Found.\nYou need to connect it to run a program")
 
