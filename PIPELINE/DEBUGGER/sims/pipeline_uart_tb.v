@@ -27,7 +27,7 @@ module pipeline_uart_test();
     reg tx_data;
     reg [7:0] data_to_send; // Data to be sent
     reg [7:0] sent_data [NUM_TESTS-1:0]; // Data sent during each test
-    integer test_num;
+    integer test_num, i;
     
     // Instantiate the ALU_UART_TOP
     debbugger_top#(
@@ -53,9 +53,7 @@ module pipeline_uart_test();
         .o_instruction(inst),
         .o_mem_w(mem_w),
         .o_enable(enable),
-        .o_addr(debug_addr),
-        .o_prog_sz(prog_sz),
-        .o_state(state)
+        .o_addr(debug_addr)
     );
 
     // Instantiate Pipeline
@@ -133,7 +131,7 @@ module pipeline_uart_test();
                 data_to_send = 8'b11111110; // LOAD_PROG_SIZE
             else if(i==1)
                 data_to_send = 8'b00000010; //PROG_SIZE
-            else if(i==2) //! ADDI $ (00100000_00000010_00000000_00000010 -> PASAR INVERTIDO)
+            else if(i==2) //! ADDI $ (001000_00000_00010_0000000000000010 -> PASAR INVERTIDO)
                 data_to_send = 8'b0000_0010;
             else if(i==3)
                 data_to_send = 8'b0000_0000;
@@ -172,6 +170,7 @@ module pipeline_uart_test();
         i_rd_uart = 1'b0;
         i_wr_uart = 1'b0;
         i_w_data = 0;
+        i = 0;
 
         @(negedge i_reset); // Wait for reset to deassert
 
@@ -181,8 +180,7 @@ module pipeline_uart_test();
         @(posedge halt)
         //#(T*10);
 
-        $display("Programm finished. Receiving Data..."); 
-        #(T*10);       
+        $display("Programm finished. Receiving Data...");       
         // Read UART //TODO Modify to read 260 bytes
         //while(o_tx_full)
         //begin
@@ -190,7 +188,8 @@ module pipeline_uart_test();
                 @(negedge o_rx_empty)
                 @(negedge i_clk);
                 i_rd_uart = 1'b1;   // Read FIFO           
-                $display("Received bits: %b \t(addr: %b)", o_r_data, debug_addr);
+                $display("iter %d:\tReceived bits: %b \t(addr: %b)", i ,o_r_data, debug_addr);
+                i = i + 1;
                 @(negedge i_clk);
                 i_rd_uart = 1'b0;
             end

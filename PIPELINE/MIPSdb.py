@@ -11,11 +11,11 @@ class IDE(ctk.CTk):
     # Initialize serial port
     try:
         ser = serial.Serial('/dev/ttyUSB1', 
-                            baudrate=19200, 
+                            baudrate=115200, 
                             bytesize=serial.EIGHTBITS, 
                             parity=serial.PARITY_NONE,
                             stopbits=serial.STOPBITS_ONE,
-                            timeout=4)
+                            timeout=10)
     except serial.SerialException:
         messagebox.showwarning("Serial Error", 
                                "Serial Port Not Found.\nYou need to connect it to run a program")
@@ -235,7 +235,7 @@ class IDE(ctk.CTk):
                 self.ser.write(bytes.fromhex(format(prog_sz, '02X')))  
                 
                 # Send LOAD_PROG Code and Write Program Line by Line (byte by byte)
-                self.ser.write(bytes.fromhex('FD'))
+                #self.ser.write(bytes.fromhex('FD'))
                 with open(current_out_file + ".hex", 'r') as file:
                     for line in file:
                         hex_line = format(int(line.strip(), 2), '08X')  # Convert binary line to 8-byte hexadecimal
@@ -293,6 +293,8 @@ class IDE(ctk.CTk):
             # Wait for HALT Code and read info
             print("Waiting for halt code...")
             read_data = self.ser.read(260) # Read mem/regs/pc states
+            print(read_data)
+            print(f'LENGTH {len(read_data)}')
             
             # TODO Ver:
             # Parse the received data and update tables
