@@ -310,6 +310,12 @@ class IDE(ctk.CTk):
             # Send DEBUG Code
             print("Starting debug session...")
             self.ser.write(bytes.fromhex('FC'))
+            # Read Data
+            read_data = self.ser.read(260) # Read mem/regs/pc states
+            
+            # TODO Ver:
+            # Parse the received data and update tables
+            self.parse_and_update_data(read_data)
         else:
             messagebox.showwarning("Serial Error", "Serial Port Not Found.\nYou need to connect it to run a program")
 
@@ -331,7 +337,7 @@ class IDE(ctk.CTk):
         if self.ser: #TODO REVISAR
             print("Step Instruction...")
             # Send NEXT Code
-            self.ser.write(bytes.fromhex('01'))
+            self.ser.write(bytes.fromhex('FC'))
             
             # Read Data
             read_data = self.ser.read(260) # Read mem/regs/pc states

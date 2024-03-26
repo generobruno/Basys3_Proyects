@@ -227,16 +227,15 @@ module uart_interface
             end
             
             DEBUG:  //! Start Debug Session
-            begin
-                if(i_data == NEXT)
+            begin //TODO REVISAR
+
+                mode_reg_next = PREV_SEND;
+
+                if(i_halt)
                 begin
-                    mode_reg_next = PREV_SEND;
-                end
-                else if(i_data == END_DEBUG | i_halt)
-                begin
-                    debugging_next = 1'b0;
-                    mode_reg_next = RESET;
-                end
+                    mode_reg_next = IDLE;
+                end 
+                
             end
             
             NO_DEBUG: //! Run program to the end
