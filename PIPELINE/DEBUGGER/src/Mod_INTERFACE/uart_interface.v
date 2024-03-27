@@ -37,8 +37,8 @@ module uart_interface
     );
     
     //! Signal Declaration
-    reg [2 : 0]             counter, counter_next;              // Auxiliar Counter (for bytes)
-    reg [W : 0]           reg_counter, reg_counter_next;      // Auxiliar Counter (for number mem/reg size)
+    reg [1 : 0]             counter, counter_next;              // Auxiliar Counter (for bytes)
+    reg [W-1 : 0]           reg_counter, reg_counter_next;      // Auxiliar Counter (for number mem/reg size)
     reg [INST_SZ-1 : 0]     inst_reg, inst_reg_next;            // Instruction Register
     reg [N-1 : 0]           to_tx_fifo, to_tx_fifo_next;        // To UART Tx Registers
     reg                     debugging, debugging_next;          // Debugging Mode Register
@@ -49,7 +49,7 @@ module uart_interface
     reg [7 : 0]             wait_mode_reg, wait_mode_reg_next;  // Next-State after Wait
     reg [7 : 0]             prog_size_reg, prog_size_reg_next;  // Program Size
     reg [7 : 0]             inst_n, inst_n_next;                // Number of instructions received
-    reg [W : 0]           addr_reg, addr_reg_next;            // Debug Address
+    reg [W-1 : 0]           addr_reg, addr_reg_next;            // Debug Address
 
     //! State Declaration
     localparam [7:0] 
@@ -91,14 +91,14 @@ module uart_interface
             wait_mode_reg   <=      IDLE;
             // Control
             to_tx_fifo      <=      {N{1'b0}};
-            counter         <=      {3{1'b0}};
-            reg_counter     <=      {(W+1){1'b0}};
+            counter         <=      {2{1'b0}};
+            reg_counter     <=      {W{1'b0}};
             debugging       <=      1'b0;
             // Data
             inst_reg        <=      {INST_SZ{1'b0}};
             prog_size_reg   <=      {8{1'b0}};
             inst_n          <=      {N{1'b0}};
-            addr_reg        <=      {(W+1){1'b0}};
+            addr_reg        <=      {W{1'b0}};
         end
         else 
         begin
@@ -258,8 +258,6 @@ module uart_interface
                     to_tx_fifo_next = i_reg_read[0+:8];
                     mode_reg_next = SEND_STATE_REG;
                     counter_next = counter + 1;
-                    //reg_counter_next = reg_counter + 1;
-                    //addr_reg_next = reg_counter + 1;
                 end
             end
             
@@ -272,35 +270,16 @@ module uart_interface
                 end
                 else 
                 begin
-                    if(reg_counter < 32)
+                    to_tx_fifo_next = i_reg_read[8*counter+:8];
+                    counter_next = counter + 1;   
+                    
+                    if(counter == 3)
                     begin
-                        to_tx_fifo_next = i_reg_read[8*counter+:8];
-                        if(counter == 3)
-                        begin
-                            counter_next = 0;
-                            addr_reg_next = reg_counter+1;
-                            reg_counter_next = reg_counter+1;
-                            if(reg_counter == 31)
-                            begin
-                                counter_next = 0;  
-                                reg_counter_next = 0;
-                                addr_reg_next = 0;
-                                mode_reg_next = SEND_STATE_MEM;
-                            end
-                        end 
-                        else
-                        begin
-                            counter_next = counter + 1;
-                        end
+                        addr_reg_next = addr_reg+1;
+                        if(addr_reg == 31) 
+                            mode_reg_next = SEND_STATE_MEM;
                     end
-                    else 
-                    begin
-                        //to_tx_fifo_next = i_reg_read[8*counter+:8];
-                        counter_next = 0;  
-                        reg_counter_next = 0;
-                        addr_reg_next = 0;
-                        mode_reg_next = SEND_STATE_MEM;
-                    end
+                    
                 end
             end
                 
@@ -313,35 +292,17 @@ module uart_interface
                 end
                 else 
                 begin
-                    if(reg_counter < 32)
+                    
+                    to_tx_fifo_next = i_mem_read[8*counter+:8];
+                    counter_next = counter + 1;
+                    
+                    if(counter==3)
                     begin
-                        to_tx_fifo_next = i_mem_read[8*counter+:8];
-                        if(counter == 3)
-                        begin
-                            counter_next = 0;
-                            addr_reg_next = reg_counter+1;
-                            reg_counter_next = reg_counter+1;
-                            if(reg_counter == 31)
-                            begin
-                                counter_next = 0;  
-                                reg_counter_next = 0;
-                                addr_reg_next = 0;
-                                mode_reg_next = SEND_PC;
-                            end
-                        end
-                        else
-                        begin
-                            counter_next = counter + 1;
-                        end
+                        addr_reg_next = addr_reg+1;
+                        if(addr_reg == 31)
+                            mode_reg_next = SEND_PC;
                     end
-                    else 
-                    begin
-                        //to_tx_fifo_next = i_mem_read[8*counter+:8];
-                        counter_next = 0;  
-                        reg_counter_next = 0;
-                        addr_reg_next = 0;
-                        mode_reg_next = SEND_PC;
-                    end
+                    
                 end
             end
                 
@@ -358,7 +319,6 @@ module uart_interface
                     counter_next = counter +1;
                     if(counter == 3)
                     begin
-                        counter_next = 3'b000;
                         mode_reg_next = END_SEND;
                     end
                 end 
