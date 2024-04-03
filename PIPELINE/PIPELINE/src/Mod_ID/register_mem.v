@@ -49,7 +49,9 @@ module register_mem
     begin
         if(i_reset)
         begin
-            regs[0] = 32'h00000000; 
+            for (i = 0; i < 2**W; i = i + 1) begin
+                regs[i] <= 32'h00000000;
+            end
         end
         else if(i_reg_write_MC)
         begin

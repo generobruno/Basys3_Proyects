@@ -28,6 +28,7 @@ module debbugger_top
         output wire     [INST_SZ-1 : 0]     o_instruction,
         output wire                         o_mem_w,
         output wire                         o_enable,
+        output wire                         o_reset,
         output wire     [W-1 : 0]           o_addr 
     );
 
@@ -88,7 +89,8 @@ module debbugger_top
         .o_write_mem(o_mem_w),
         .o_enable(o_enable),
         .o_inst(o_instruction),
-        .o_addr(o_addr)
+        .o_addr(o_addr),
+        .o_reset(o_reset)
     );
 
 

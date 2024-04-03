@@ -29,6 +29,7 @@ module cpu
     wire    enable;                         // Enable Execution Control Line
     wire    write;                          // Wirte Instructions Control Line
     wire    halt;                           // Stop Execution Control Line
+    wire    reset_soft;                     // Soft Reset
     wire [INST_SZ-1 : 0]    inst;           // Instructions to Load
     wire [W-1 : 0]          debug_addr;     // Debug Address for mem/reg
     wire [DATA_SZ-1 : 0]    mem, regs;      // Mem/Reg Debug Data
@@ -45,7 +46,7 @@ module cpu
         ) Pipeline
         (
         // Inputs 
-        .i_clk(clk), .i_reset(i_reset),
+        .i_clk(clk), .i_reset(i_reset | reset_soft),
         .i_write(write), .i_enable(enable & locked),
         .i_instruction(inst),
         .i_debug_addr(debug_addr),
@@ -73,7 +74,7 @@ module cpu
         .o_tx(o_tx),
         .o_instruction(inst),
         .o_mem_w(write), .o_enable(enable),
-        .o_addr(debug_addr)
+        .o_addr(debug_addr), .o_reset(reset_soft)
     );
 
     // Clock

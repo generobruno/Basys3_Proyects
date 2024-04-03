@@ -1,7 +1,7 @@
 import tkinter as tk
 import customtkinter as ctk
 from tkinter import filedialog, messagebox
-import subprocess, os, serial, struct
+import subprocess, os, serial, struct, sys
 
 current_file_path = ""
 current_out_file = ""
@@ -48,12 +48,20 @@ class IDE(ctk.CTk):
         self.filename_text = ctk.CTkTextbox(self.files_frame, height=1, border_spacing=1, corner_radius=2, wrap="none")
         self.filename_text.pack(side="left", fill="x", padx=5)
         
+        self.reset_button = ctk.CTkButton(self.files_frame, text="Reset", 
+                                          command=self.stop_debug,
+                                          height=5,
+                                          width=70,
+                                          corner_radius=10,
+                                          fg_color="firebrick4")
+        self.reset_button.pack(side='left', pady=3, padx=3)
+        
         self.run_opt = ctk.CTkOptionMenu(self.files_frame,
                                     values=["Run", "Debug"], 
                                     command=self.manage_db, 
                                     height=5,
                                     width=100)
-        self.run_opt.pack(side='right')
+        self.run_opt.pack(side='right', pady=3, padx=3)
 
         # Text Editor
         self.text_editor = ctk.CTkTextbox(self)
@@ -165,7 +173,8 @@ class IDE(ctk.CTk):
         
         try:
             # Execute assembler.py with appropriate arguments
-            subprocess.run("python ASSEMBLER/assembler.py -i {} -o {}.hex".format(current_file_path, name), shell=True, check=True)
+            env = os.environ.copy()
+            subprocess.Popen("{} ASSEMBLER/assembler.py -i {} -o {}.hex".format(sys.executable, current_file_path, name), shell=True, env=env)
             messagebox.showinfo("Compilation Successful", "The file has been compiled successfully.")
         except subprocess.CalledProcessError:
             messagebox.showerror("Compilation Error", "An error occurred during compilation. Please check the assembler script.")
@@ -229,18 +238,17 @@ class IDE(ctk.CTk):
             print(format(prog_sz, '02X'))
             
             # Try to write the code to the board
-            try: #TODO REVISAR                
+            try:               
                 # Send LOAD_PROG_SIZE Code and Send Program Size
                 self.ser.write(bytes.fromhex('FE'))
                 self.ser.write(bytes.fromhex(format(prog_sz, '02X')))  
                 
                 # Send LOAD_PROG Code and Write Program Line by Line (byte by byte)
-                #self.ser.write(bytes.fromhex('FD'))
                 with open(current_out_file + ".hex", 'r') as file:
                     for line in file:
                         hex_line = format(int(line.strip(), 2), '08X')  # Convert binary line to 8-byte hexadecimal
                         print(f'hex_line: {hex_line}')
-                        for i in range(len(hex_line) - 2, -1, -2): # TODO Revisar Send from right to left
+                        for i in range(len(hex_line) - 2, -1, -2): 
                             byte = hex_line[i:i+2]
                             print(f'bye: {byte}')
                             self.ser.write(bytes.fromhex(byte))
@@ -296,7 +304,6 @@ class IDE(ctk.CTk):
             print(read_data)
             print(f'LENGTH {len(read_data)}')
             
-            # TODO Ver:
             # Parse the received data and update tables
             self.parse_and_update_data(read_data)
         else:
@@ -313,7 +320,6 @@ class IDE(ctk.CTk):
             # Read Data
             read_data = self.ser.read(260) # Read mem/regs/pc states
             
-            # TODO Ver:
             # Parse the received data and update tables
             self.parse_and_update_data(read_data)
         else:
@@ -327,6 +333,7 @@ class IDE(ctk.CTk):
             # Send RESTART Code
             print("Restarting...")
             self.ser.write(bytes.fromhex('30'))
+            self.init_tables()
         else:
             messagebox.showwarning("Serial Error", "Serial Port Not Found.\nYou need to connect it to run a program")
 
@@ -334,6 +341,7 @@ class IDE(ctk.CTk):
         Send "step" code to the UART to step to the next instruction.
     """
     def debug_code(self):
+        prog_sz = self.get_prog_size()
         if self.ser: #TODO REVISAR
             print("Step Instruction...")
             # Send NEXT Code
@@ -342,7 +350,6 @@ class IDE(ctk.CTk):
             # Read Data
             read_data = self.ser.read(260) # Read mem/regs/pc states
             
-            # TODO Ver:
             # Parse the received data and update tables
             self.parse_and_update_data(read_data)
         else:
@@ -351,7 +358,7 @@ class IDE(ctk.CTk):
     """ update_table
         Updates specfici table with new values
     """
-    def update_table(self, text_widget, values): #TODO Revisar
+    def update_table(self, text_widget, values): 
         text_widget.configure(state=ctk.NORMAL)
         text_widget.delete('1.0', ctk.END)
         for name, value in values.items():
@@ -365,7 +372,7 @@ class IDE(ctk.CTk):
     """ update_register_memory
         Update all tables
     """
-    def init_tables(self): #TODO Revisar -> Leer UART con toda la info (260 bytes -> 32*2 (mem_reg) + 1 (pc))
+    def init_tables(self): 
         # Placeholder for updating registers and memory values periodically
         registers_values = {
             f"Reg {i}": f"Value{i}" for i in range(32)
