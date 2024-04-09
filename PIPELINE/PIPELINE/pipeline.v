@@ -67,7 +67,7 @@ module pipeline
     IF_ID_reg #(.INST_SZ(INST_SZ)) IF_ID
         (
         // Sync Signals
-        .i_clk(i_clk), .i_reset(i_reset | pc_src_D | jump_MC | jump_sel_MC ), .i_enable(!stall_if_id_HD & i_enable),
+        .i_clk(i_clk), .i_reset(i_reset | pc_src_D | jump_MC | jump_sel_MC ), .i_enable(!stall_if_id_HD & i_enable), //TODO Agregar !halt_MC
         // Inputs
         .i_instruction(instruction_F), .i_npc(npc_F), .i_bds(branch_delay_slot_F),
         // Outputs

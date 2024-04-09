@@ -410,7 +410,7 @@ module pipeline_hazards_tb();
         //! J next1 -> CONTOL HAZARD (08hex)
         // Inputs
         reg_instr_index = 26'h14;
-        // Jump to next1 (18hex)    
+        // Jump to next1 (14hex)    
 
         i_instruction = {6'b000010, reg_instr_index};
 
