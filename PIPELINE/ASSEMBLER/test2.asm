@@ -9,7 +9,7 @@ addu $r4, $r1, $r2
 sw $r4, 16($r3)    
 lw $r5, 16($r3)    
 slt $r6, $r1, $r5  
-slt $r4, 16($r3)   
+sw $r4, 16($r3)   
 xori $r4, $r3, 0001
 xori $r6, $r6, 0001
 addi $r15, $r0, 65535    
