@@ -10,7 +10,7 @@ Este repositorio contiene una colección de proyectos desarrollados para la FPGA
 
 - [UART](./UART): Aquí se encuentra un proyecto que implementa una interfaz UART (Universal Asynchronous Receiver-Transmitter) en la FPGA Basys 3. La UART permite la comunicación serial entre la FPGA y otros dispositivos, como una computadora.
 
-- [MIPS_PIPELINE](./MIPS_PIPELINE): En esta carpeta, se encuentra un proyecto que implementa un pipeline para un procesador MIPS en la FPGA Basys 3. El pipeline es una técnica avanzada de diseño de CPU que mejora la eficiencia y el rendimiento del procesador.
+- [MIPS_PIPELINE](./PIPELINE): En esta carpeta, se encuentra un proyecto que implementa un pipeline para un procesador MIPS en la FPGA Basys 3. El pipeline es una técnica avanzada de diseño de CPU que mejora la eficiencia y el rendimiento del procesador.
 
 ## Instrucciones de Uso
 
