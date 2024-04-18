@@ -69,7 +69,7 @@ module instruction_mem
         write_ptr <= 0;
     end
 
-    //! Assignments //TODO Ver como enmascarar i_addr para seleccionar la instr
+    //! Assignments 
     assign o_data = array_reg[(i_addr & mask) >> 2];
 
 endmodule
