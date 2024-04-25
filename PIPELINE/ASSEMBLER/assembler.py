@@ -74,6 +74,11 @@ class Assembler(object):
                 of.write(outline)
                 if i < len(outlines) - 1:  # Check if it's not the last line
                     of.write("\n")
+            of.write("\n11111111111111111111111111111111\n")
+            of.write("11111111111111111111111111111111\n")
+            of.write("11111111111111111111111111111111\n")
+            of.write("11111111111111111111111111111111\n")
+            of.write("11111111111111111111111111111111")
         of.close()
 
 if __name__ == "__main__":

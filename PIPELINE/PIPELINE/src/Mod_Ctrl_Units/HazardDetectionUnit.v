@@ -39,13 +39,13 @@ module HazardDetectionUnit
                 stall_if_id = 1'b1;
                 flush_id_ex = 1'b1;
             end
-        else if((i_branch_D & i_reg_write_E & ((i_instr_rd_E == i_instr_rs_D) | (i_instr_rd_E == i_instr_rt_D))) 
-                | (i_branch_D & i_mem_to_reg_M & ((i_instr_rd_M == i_instr_rs_D) | (i_instr_rd_M == i_instr_rt_D)))) 
+        else if(((i_branch_D) & i_reg_write_E & ((i_instr_rd_E == i_instr_rs_D) | (i_instr_rd_E == i_instr_rt_D))) 
+                | ((i_branch_D) & i_mem_to_reg_M & ((i_instr_rd_M == i_instr_rs_D) | (i_instr_rd_M == i_instr_rt_D)))) 
             begin
                 // Branch Stall
                 stall_pc    = 1'b1;
                 stall_if_id = 1'b1;
-                flush_id_ex = 1'b1;
+                flush_id_ex = 1'b1; 
             end
         else 
             begin

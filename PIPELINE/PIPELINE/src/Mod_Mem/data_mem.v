@@ -12,6 +12,7 @@ module data_mem
     (
         // Inputs
         input wire                      i_clk,                      // Clock
+        input wire                      i_reset,                    // Reset
         input wire                      i_mem_write,                // Write Control Line
         input wire [2 : 0]              i_bhw,                      // Memory Size Control Line
         input [W-1 : 0]                 i_addr,                     // Address
@@ -52,6 +53,15 @@ module data_mem
     // Body
     always @(posedge i_clk) 
     begin
+        if(i_reset)
+        begin
+            for (i = 0; i < 2**W; i = i + 1) begin
+                array_reg[i] = {B{1'b0}};
+            end
+        end
+        else
+        begin
+
         if(i_mem_write)
             begin // Write Operations
                 case (i_bhw[1:0])
@@ -99,7 +109,7 @@ module data_mem
                     end 
                 endcase
             end
-
+        end
     end
 
     // Aligned Byte 
