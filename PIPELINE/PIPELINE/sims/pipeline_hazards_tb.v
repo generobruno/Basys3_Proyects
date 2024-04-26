@@ -68,6 +68,10 @@ module pipeline_hazards_tb();
     wire [INST_SZ-1 : 0] branch_addr_D;
     wire [INST_SZ-1 : 0] read_data_1;
     wire [INST_SZ-1 : 0] read_data_2;
+    wire                    halt_ID_EX; 
+    wire                    halt_EX_MEM;  
+    wire                    halt_MC;             
+
 
     IF #(.INST_SZ(INST_SZ), .PC_SZ(PC_SZ), .MEM_SZ(MEM_SZ)) InstructionFetch
         (
@@ -77,7 +81,8 @@ module pipeline_hazards_tb();
         .i_instruction_F(i_instruction), .i_branch_addr_D(branch_addr_D), 
         .i_jump_addr_D(jump_addr_D), .i_rs_addr_D(read_data_1),
         // Input Control Lines 
-        .i_pc_src_D(pc_src_D), .i_jump_D(jump_MC), .i_jump_sel_D(jump_sel_MC), .i_stall_pc_HD(!stall_pc_HD),
+        .i_pc_src_D(pc_src_D), .i_jump_D(jump_MC), .i_jump_sel_D(jump_sel_MC), 
+        .i_stall_pc_HD(!stall_pc_HD), .i_halt(halt_MC | halt_ID_EX | halt_EX_MEM),
         // Outputs
         .o_pc(o_pc), .o_npc_F(npc_F), .o_branch_delay_slot_F(branch_delay_slot_F), .o_instruction_F(instruction_F)
         );
@@ -91,8 +96,8 @@ module pipeline_hazards_tb();
 
     IF_ID_reg #(.INST_SZ(INST_SZ)) IF_ID
         (
-        // Sync Signals
-        .i_clk(i_clk), .i_reset(i_reset | pc_src_D | jump_MC | jump_sel_MC ), .i_enable(!stall_if_id_HD & i_enable),
+        // Sync Signals                       
+        .i_clk(i_clk), .i_reset(i_reset | pc_src_D | jump_MC | jump_sel_MC), .i_enable(!stall_if_id_HD & i_enable),
         // Inputs
         .i_instruction(instruction_F), .i_npc(npc_F), .i_bds(branch_delay_slot_F),
         // Outputs
@@ -112,8 +117,6 @@ module pipeline_hazards_tb();
     wire [REG_SZ-1 : 0]           write_register_MEM_WB;
     wire [ALU_OP-1 : 0]           alu_op_MC;
     wire [2 : 0]                  bhw_MC;
-    wire                          halt_MC;
-
 
     ID #(.INST_SZ(INST_SZ), .REG_SZ(REG_SZ), .FORW_EQ(FORW_EQ)) InstructionDecode
         (
@@ -161,10 +164,9 @@ module pipeline_hazards_tb();
     wire [REG_SZ-1 : 0]      instr_rd_ID_EX;                 
     wire [REG_SZ-1 : 0]      instr_rs_ID_EX;
     wire [ALU_OP-1 : 0]      alu_op_ID_EX;
-    wire                     halt_ID_EX; 
     wire                     alu_src_ID_EX;      
     wire                     reg_dst_ID_EX;   
-    wire                     jal_sel_ID_EX;    //TODO Agregar SXL/SXLV Control line 
+    wire                     jal_sel_ID_EX;    
     wire                     mem_read_ID_EX;  
     wire                     mem_write_ID_EX;
     wire [2 : 0]             bhw_ID_EX; 
@@ -177,7 +179,7 @@ module pipeline_hazards_tb();
         (
         // Sync Signals
         .i_clk(i_clk), .i_reset(i_reset | flush_id_ex_HD), .i_enable(i_enable),
-        // Input Control Lines //TODO Agregar SXL/SXLV Control Line
+        // Input Control Lines 
         .i_alu_src(alu_src_MC), .i_alu_op(alu_op_MC), .i_reg_dst(reg_dst_MC), .i_halt(halt_MC),
         .i_jal_sel(jal_sel_MC), .i_mem_read(mem_read_MC), .i_mem_write(mem_write_MC), .i_bhw(bhw_MC),
         .i_reg_write(reg_write_MC), .i_mem_to_reg(mem_to_reg_MC), .i_bds_sel(bds_sel_MC),
@@ -185,7 +187,7 @@ module pipeline_hazards_tb();
         .i_bds(bds_IF_ID), .i_read_data_1(read_data_1), 
         .i_read_data_2(read_data_2), .i_instr_imm(instr_imm_D), 
         .i_instr_rt(instr_rt_D), .i_instr_rd(instr_rd_D), .i_instr_rs(instr_rs_D),
-        // Output Control Lines //TODO Agregar SXL/SXLV Control Line
+        // Output Control Lines 
         .o_alu_src(alu_src_ID_EX), .o_alu_op(alu_op_ID_EX), .o_reg_dst(reg_dst_ID_EX), .o_halt(halt_ID_EX), 
         .o_jal_sel(jal_sel_ID_EX), .o_mem_read(mem_read_ID_EX), .o_mem_write(mem_write_ID_EX), .o_bhw(bhw_ID_EX),
         .o_reg_write(reg_write_ID_EX), .o_mem_to_reg(mem_to_reg_ID_EX), .o_bds_sel(bds_sel_ID_EX),
@@ -213,7 +215,7 @@ module pipeline_hazards_tb();
         .i_alu_result_M(alu_result_EX_MEM), .i_read_data_W(write_data_W),
         .i_instr_imm_D(instr_imm_ID_EX), .i_instr_rt_D(instr_rt_ID_EX), 
         .i_instr_rd_D(instr_rd_ID_EX),
-        // Input Control Lines //TODO Agregar SXL/SXLV Control Line
+        // Input Control Lines 
         .i_alu_src_MC(alu_src_ID_EX), .i_reg_dst_MC(reg_dst_ID_EX), .i_jal_sel_MC(jal_sel_ID_EX),
         .i_alu_op_MC(alu_op_ID_EX), .i_forward_a_FU(forward_a_FU), .i_forward_b_FU(forward_b_FU),
         // Outputs 
@@ -232,7 +234,6 @@ module pipeline_hazards_tb();
     wire                     reg_write_EX_MEM;               
     wire                     mem_to_reg_EX_MEM;              
     wire                     bds_sel_EX_MEM;   
-    wire                     halt_EX_MEM;               
 
     EX_MEM_reg #(.INST_SZ(INST_SZ)) EX_MEM
         (
@@ -240,7 +241,7 @@ module pipeline_hazards_tb();
         .i_clk(i_clk), .i_reset(i_reset), .i_enable(i_enable),
         // Input Control Lines 
         .i_mem_write(mem_write_ID_EX), .i_reg_write(reg_write_ID_EX), 
-        .i_mem_to_reg(mem_to_reg_ID_EX), .i_bds_sel(bds_sel_ID_EX),
+        .i_mem_to_reg(mem_to_reg_ID_EX), .i_bds_sel(bds_sel_ID_EX), 
         .i_halt(halt_ID_EX), .i_bhw(bhw_ID_EX),
         // Inputs
         .i_alu_result(alu_result_E), .i_write_data(write_data_E),
@@ -262,7 +263,7 @@ module pipeline_hazards_tb();
     MEM #(.INST_SZ(INST_SZ)) MemoryAccess
         (
         // Sync Signals
-        .i_clk(i_clk),
+        .i_clk(i_clk), .i_reset(i_reset),
         // Inputs 
         .i_alu_result_E(alu_result_EX_MEM), .i_operand_b_E(write_data_EX_MEM),
         .i_debug_addr(i_debug_addr),
@@ -320,11 +321,11 @@ module pipeline_hazards_tb();
     //  Hazard Detection Unit
     HazardDetectionUnit #(.INPUT_SZ(REG_SZ)) HazardDetectionUnit
         (
-            // Input Control Lines //TODO REVISAR
+            // Input Control Lines 
             .i_mem_to_reg_M(mem_to_reg_EX_MEM),             
             .i_mem_read_E(mem_read_ID_EX),               
             .i_reg_write_E(reg_write_ID_EX),              
-            .i_branch_D(branch_MC),  
+            .i_branch_D(branch_MC),
             // Inputs               
             .i_instr_rs_D(instr_rs_D),    
             .i_instr_rt_D(instr_rt_D), 
@@ -340,7 +341,7 @@ module pipeline_hazards_tb();
     //  Forwarding Unit
     ForwardingUnit #(.FORW_EQ(FORW_EQ), .FORW_ALU(FORW_ALU)) ForwardingUnit
         (
-            // Inputs //TODO REVISAR
+            // Inputs
             .i_instr_rs_D(instr_rs_D),
             .i_instr_rt_D(instr_rt_D),
             .i_instr_rt_E(instr_rt_ID_EX),
@@ -550,7 +551,7 @@ module pipeline_hazards_tb();
         */
 
         //! TEST UNSIGNED LOADS
-
+        /*
         //! ADDI - Add Immediate Test: rt <- rs + imm
         // Inputs
         reg_instr_rs = 5'b00000;
@@ -595,6 +596,7 @@ module pipeline_hazards_tb();
         i_instruction = {6'b001_111, 5'b00000, reg_instr_rt, reg_immediate};
 
         #(T*2);
+        */
 
         //! HALT (3Chex)
         i_instruction = 32'b000000_00000_00000_00000_111111;

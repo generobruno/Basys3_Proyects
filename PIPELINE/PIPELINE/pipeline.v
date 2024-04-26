@@ -43,6 +43,10 @@ module pipeline
     wire [INST_SZ-1 : 0] branch_addr_D;
     wire [INST_SZ-1 : 0] read_data_1;
     wire [INST_SZ-1 : 0] read_data_2;
+    wire                    halt_ID_EX; 
+    wire                    halt_EX_MEM;  
+    wire                    halt_MC;             
+
 
     IF #(.INST_SZ(INST_SZ), .PC_SZ(PC_SZ), .MEM_SZ(MEM_SZ)) InstructionFetch
         (
@@ -52,7 +56,8 @@ module pipeline
         .i_instruction_F(i_instruction), .i_branch_addr_D(branch_addr_D), 
         .i_jump_addr_D(jump_addr_D), .i_rs_addr_D(read_data_1),
         // Input Control Lines 
-        .i_pc_src_D(pc_src_D), .i_jump_D(jump_MC), .i_jump_sel_D(jump_sel_MC), .i_stall_pc_HD(!stall_pc_HD),
+        .i_pc_src_D(pc_src_D), .i_jump_D(jump_MC), .i_jump_sel_D(jump_sel_MC), 
+        .i_stall_pc_HD(!stall_pc_HD), .i_halt(halt_MC | halt_ID_EX | halt_EX_MEM),
         // Outputs
         .o_pc(o_pc), .o_npc_F(npc_F), .o_branch_delay_slot_F(branch_delay_slot_F), .o_instruction_F(instruction_F)
         );
@@ -87,8 +92,6 @@ module pipeline
     wire [REG_SZ-1 : 0]           write_register_MEM_WB;
     wire [ALU_OP-1 : 0]           alu_op_MC;
     wire [2 : 0]                  bhw_MC;
-    wire                          halt_MC;
-
 
     ID #(.INST_SZ(INST_SZ), .REG_SZ(REG_SZ), .FORW_EQ(FORW_EQ)) InstructionDecode
         (
@@ -136,7 +139,6 @@ module pipeline
     wire [REG_SZ-1 : 0]      instr_rd_ID_EX;                 
     wire [REG_SZ-1 : 0]      instr_rs_ID_EX;
     wire [ALU_OP-1 : 0]      alu_op_ID_EX;
-    wire                     halt_ID_EX; 
     wire                     alu_src_ID_EX;      
     wire                     reg_dst_ID_EX;   
     wire                     jal_sel_ID_EX;    
@@ -207,7 +209,6 @@ module pipeline
     wire                     reg_write_EX_MEM;               
     wire                     mem_to_reg_EX_MEM;              
     wire                     bds_sel_EX_MEM;   
-    wire                     halt_EX_MEM;               
 
     EX_MEM_reg #(.INST_SZ(INST_SZ)) EX_MEM
         (

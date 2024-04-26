@@ -23,6 +23,7 @@ module IF
         input                           i_jump_D,                   // Jump Control Line
         input                           i_jump_sel_D,               // JumpSel Control Line
         input                           i_stall_pc_HD,              // StallPC Control Line
+        input                           i_halt,                     // Halt
         // Outputs
         output [INST_SZ-1 : 0]          o_pc,                       // PC Out
         output [INST_SZ-1 : 0]          o_npc_F,                    // NPC
@@ -38,12 +39,12 @@ module IF
 
     //! Instantiations
     mpx_2to1 #(.N(INST_SZ)) pc_src_mpx
-        (.input_a(o_npc_F), .input_b(i_branch_addr_D), // TODO Revisar
+        (.input_a(o_npc_F), .input_b(i_branch_addr_D), 
         .i_select(i_pc_src_D),
         .o_output(o_pc_src_mpx));
 
     mpx_2to1 #(.N(INST_SZ)) jump_mpx
-        (.input_a(o_pc_src_mpx), .input_b(i_jump_addr_D>>2), //TODO REVISAR
+        (.input_a(o_pc_src_mpx), .input_b(i_jump_addr_D>>2), 
         .i_select(i_jump_D),
         .o_output(o_jump_mpx));
 
@@ -53,7 +54,7 @@ module IF
         .o_output(o_jump_sel_mpx));
 
     pc #(.PC_SZ(PC_SZ)) prog_counter
-        (.i_clk(i_clk), .i_reset(i_reset), .i_enable(i_stall_pc_HD & i_enable),
+        (.i_clk(i_clk), .i_reset(i_reset), .i_enable(i_stall_pc_HD & i_enable & !i_halt),
         .i_pc(o_jump_sel_mpx), 
         .o_pc(instr_addr));
 
