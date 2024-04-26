@@ -331,11 +331,11 @@ module uart_interface
                 begin
                     if(debugging)
                     begin
-                        mode_reg_next = START;        
+                        mode_reg_next = IDLE;        
                     end
                     else 
                     begin
-                        mode_reg_next = RESET; //TODO IDLE or RESET
+                        mode_reg_next = RESET;
                     end
                 end  
             end

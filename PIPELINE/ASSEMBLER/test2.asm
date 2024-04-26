@@ -1,5 +1,5 @@
 xori $r1, $r0, 0003     
-xori $r2, $r0, 0004     
+xori $r2, $r0, 0004     # Jump to Next1
 j 56
 xori $r1, $r0, 0001     
 xori $r2, $r0, 0001
@@ -12,7 +12,7 @@ slt $r6, $r1, $r5
 sw $r4, 16($r3)   
 xori $r4, $r3, 0001
 xori $r6, $r6, 0001
-addi $r15, $r0, 65535    
+addi $r15, $r0, 65535    # Next1
 sw $r15, 24($r13)  
 lhu $r30, 24($r13)
 halt

@@ -364,9 +364,10 @@ module pipeline_hazards_tb();
     // Clock Generation
     always
     begin
-    
         #(T) i_clk = ~i_clk;
     end
+
+    //TODO Set enable cada 4 ciclos aprox
     
     // Task
     initial 
