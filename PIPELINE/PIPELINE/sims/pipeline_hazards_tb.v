@@ -368,8 +368,48 @@ module pipeline_hazards_tb();
         #(T) i_clk = ~i_clk;
     end
 
-    //TODO Set enable cada 4 ciclos aprox
-    
+    //! Simulate Debug Mode
+    // Counter to control i_enable
+    reg [2:0] enable_counter;
+    reg toggle_enable;
+
+    always @(posedge i_clk) begin
+        if (i_reset) 
+        begin
+            enable_counter <= 2'b11; // Initialize to 3
+            toggle_enable <= 1'b0;   // Disable toggling
+        end 
+        else 
+        begin
+            if (toggle_enable) 
+            begin
+                // Toggle i_enable every four clock cycles
+                if (enable_counter == 2'b00) 
+                begin
+                    enable_counter <= 2'b11;
+                    i_enable <= 1'b1; // Toggle i_enable
+                end 
+                else 
+                begin
+                    enable_counter <= enable_counter - 1;
+                    i_enable <= 1'b0;
+                end
+            end 
+            else 
+            begin
+                // If i_enable is set to 1, start toggling
+                if (i_enable) 
+                begin
+                    toggle_enable <= 1'b1;
+                end
+                else 
+                begin
+                    toggle_enable <= 1'b0;
+                end
+            end
+        end
+    end
+
     // Task
     initial 
     begin
@@ -627,6 +667,7 @@ module pipeline_hazards_tb();
         @(posedge o_halt);
         
         $display("PROGRAM FINISHED.");
+        toggle_enable = 1'b0;
         i_enable = 1'b0;
 
         $display("\nDisplaying Memory Data:");
