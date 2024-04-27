@@ -59,7 +59,7 @@ module IF
         .o_pc(instr_addr));
 
     pc_adder #(.PC_SZ(PC_SZ)) pc_adder
-        (.i_pc(instr_addr),
+        (.i_pc(instr_addr), .i_enable(i_stall_pc_HD & i_enable & !i_halt),
         .o_pc(o_npc_F), .o_bds(o_branch_delay_slot_F));
 
     instruction_mem #(.B(INST_SZ), .W(MEM_SZ), .PC(PC_SZ)) inst_mem

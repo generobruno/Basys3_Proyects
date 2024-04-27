@@ -10,6 +10,7 @@ module pc_adder
     (
         // Inputs
         input wire [PC_SZ-1 : 0]        i_pc,                       // Input PC
+        input wire                      i_enable,                   // Enable
         // Outputs
         output wire [PC_SZ-1 : 0]       o_pc,                       // Output PC
         output wire [PC_SZ-1 : 0]       o_bds                       // Branch Delay Slot
@@ -22,8 +23,16 @@ module pc_adder
     // Body
     always @(*) 
     begin
-        prog_counter = i_pc + 4;
-        branch_delay_slot = i_pc + 8;
+        if(i_enable)
+        begin
+            prog_counter = i_pc + 4;
+            branch_delay_slot = i_pc + 8;
+        end
+        else
+        begin
+            prog_counter = i_pc;
+            branch_delay_slot = i_pc;
+        end
     end
 
     //! Assignments

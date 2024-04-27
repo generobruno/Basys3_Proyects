@@ -129,6 +129,7 @@ module pipeline_hazards_tb();
         .i_alu_result_M(alu_result_EX_MEM), .i_branch_MC(branch_MC), 
         .i_equal_MC(equal_MC), .i_reg_write_W(reg_write_MEM_WB), 
         .i_write_register_D(write_register_MEM_WB), .i_write_data_D(write_data_W),
+        .i_enable(i_enable),
         // Outputs
         .o_jump_addr_D(jump_addr_D), .o_branch_addr_D(branch_addr_D), 
         .o_read_data_1_D(read_data_1), .o_read_data_2_D(read_data_2),   
@@ -659,6 +660,7 @@ module pipeline_hazards_tb();
         i_write = 1'b0;
         i_instruction = {INST_SZ{1'b0}};
         #100;
+        toggle_enable = 1'b1;
         i_enable = 1'b1;
         
         $display("RUNNING...");
