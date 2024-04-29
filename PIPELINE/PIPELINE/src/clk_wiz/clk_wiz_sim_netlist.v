@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-// Date        : Sat Apr 27 10:37:55 2024
+// Date        : Sat Apr 27 10:37:54 2024
 // Host        : BrunoLaptop running 64-bit Ubuntu 22.04.4 LTS
-// Command     : write_verilog -force -mode funcsim
-//               /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/PIPELINE/PIPELINE/src/clk_wiz/clk_wiz_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top clk_wiz -prefix
+//               clk_wiz_ clk_wiz_sim_netlist.v
 // Design      : clk_wiz
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -29,14 +29,14 @@ module clk_wiz
   wire locked;
   wire reset;
 
-  clk_wiz_clk_wiz inst
+  clk_wiz_clk_wiz_clk_wiz inst
        (.clk_in(clk_in),
         .clk_out(clk_out),
         .locked(locked),
         .reset(reset));
 endmodule
 
-module clk_wiz_clk_wiz
+module clk_wiz_clk_wiz_clk_wiz
    (clk_out,
     reset,
     locked,
