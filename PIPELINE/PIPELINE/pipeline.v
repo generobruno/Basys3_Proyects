@@ -96,7 +96,7 @@ module pipeline
     ID #(.INST_SZ(INST_SZ), .REG_SZ(REG_SZ), .FORW_EQ(FORW_EQ)) InstructionDecode
         (
         // Sync Signals
-        .i_clk(i_clk), .i_reset(i_reset),
+        .i_clk(i_clk), .i_reset(i_reset), .i_enable(i_enable),
         // Inputs
         .i_instruction_D(instruction_IF_ID), .i_npc_D(npc_IF_ID), .i_debug_addr(i_debug_addr),
         // Input Control Lines

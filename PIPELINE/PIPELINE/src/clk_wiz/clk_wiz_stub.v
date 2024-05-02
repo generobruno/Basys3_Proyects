@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.1.1 (lin64) Build 3900603 Fri Jun 16 19:30:25 MDT 2023
-// Date        : Sat Mar 23 09:26:02 2024
+// Date        : Sat Apr 27 10:37:54 2024
 // Host        : BrunoLaptop running 64-bit Ubuntu 22.04.4 LTS
-// Command     : write_verilog -force -mode synth_stub
-//               /home/bruno/Documents/Facultad/5to_anio/Arquitectura_de_Computadoras/Trabajos_Practicos/Basys3_Proyects/PIPELINE/PIPELINE/src/clk_wiz/clk_wiz_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top clk_wiz -prefix
+//               clk_wiz_ clk_wiz_stub.v
 // Design      : clk_wiz
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tcpg236-3
