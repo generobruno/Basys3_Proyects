@@ -431,6 +431,20 @@ Toda la funcionalidad del proyecto implementado se puede probar con la interfaz 
 
 ![MIPSdb Example](resources/MIPSdb_example.png)
 
+### Errores Conocidos
+
+Al aumentar la frecuencia del reloj unos 10Hz de la de uso normal, es decir, a 90 0 100GHz, se presentan los siguientes errores de timing:
+
+![Timing errors](resources/timing_summary.png)
+
+Los caminos que no pueden cumplir con los requerimientos:
+
+![Timing error paths](resources/timing_error_paths.png)
+
+Y el esquemático del camino más critico:
+
+![Timing Crit Schm](resources/crit_time_schm.png)
+
 ### Usage
 
 1. **Sintetizar el programa con un sintetizador (por ejemplo, Vivado)**:
