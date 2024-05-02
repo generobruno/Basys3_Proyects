@@ -36,6 +36,7 @@ module IF
     wire [INST_SZ-1 : 0] o_jump_mpx;
     wire [INST_SZ-1 : 0] o_jump_sel_mpx;
     wire [INST_SZ-1 : 0] instr_addr;
+    reg toggle_pc;
 
     //! Instantiations
     mpx_2to1 #(.N(INST_SZ)) pc_src_mpx
@@ -54,12 +55,12 @@ module IF
         .o_output(o_jump_sel_mpx));
 
     pc #(.PC_SZ(PC_SZ)) prog_counter
-        (.i_clk(i_clk), .i_reset(i_reset), .i_enable(i_stall_pc_HD & i_enable & !i_halt),
+        (.i_clk(i_clk), .i_reset(i_reset), .i_enable(i_stall_pc_HD & i_enable & !toggle_pc),
         .i_pc(o_jump_sel_mpx), 
         .o_pc(instr_addr));
 
     pc_adder #(.PC_SZ(PC_SZ)) pc_adder
-        (.i_pc(instr_addr), .i_enable(i_stall_pc_HD & i_enable & !i_halt),
+        (.i_pc(instr_addr), .i_enable(i_stall_pc_HD & i_enable & !toggle_pc),
         .o_pc(o_npc_F), .o_bds(o_branch_delay_slot_F));
 
     instruction_mem #(.B(INST_SZ), .W(MEM_SZ), .PC(PC_SZ)) inst_mem
@@ -70,5 +71,20 @@ module IF
 
     //! Assignments
     assign o_pc = instr_addr;
+
+    always @(posedge i_clk) 
+    begin
+        if (i_reset)
+        begin
+            toggle_pc <= 1'b0;
+        end
+        else
+        begin
+            if(i_halt)
+            begin
+                toggle_pc <= 1'b1;
+            end
+        end
+    end
 
 endmodule
